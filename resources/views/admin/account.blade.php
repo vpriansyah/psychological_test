@@ -45,14 +45,26 @@
                                     <div class="mb-3 form-password-toggle">
                                         <label class="form-label" for="password">Password</label>
                                         <div class="input-group input-group-merge">
-                                            <input type="password" id="password" name="password" class="form-control"
+                                            <input type="password" id="password" name="password"
+                                                class="form-control @error('password') is-invalid @enderror"
                                                 placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
                                                 aria-describedby="password" required />
                                             <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+                                            @error('password')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="mb-3">
-                                        <select class="form-select" aria-label="Default select example" name="role_id">
+                                        <select class="form-select @error('role_id') is-invalid @enderror"
+                                            aria-label="Default select example" name="role_id">
+                                            @error('role_id')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                             <option selected>Role User</option>
                                             <option value="1">User</option>
                                             <option value="2">HRD</option>
@@ -82,6 +94,18 @@
         <div class="container-xxl flex-grow-1 container-p-y">
             <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Account Setting /</span>
                 Account</h4>
+            @if (session()->has('success'))
+                <div class="alert alert-success alert-dismissible fade show mx-auto" role="alert">
+                    {{ session('success') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
+            @if (session()->has('delete'))
+                <div class="alert alert-success alert-dismissible fade show mx-auto" role="alert">
+                    {{ session('delete') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
 
             <!-- Basic Bootstrap Table -->
             <div class="card">
@@ -120,25 +144,69 @@
                                     <td>
                                         {{ $account->role_id }}
                                     </td>
-                                    <td><span class="badge bg-label-primary me-1">Active</span></td>
                                     <td>
-                                        <div class="dropdown">
-                                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
-                                                data-bs-toggle="dropdown">
-                                                <i class="bx bx-dots-vertical-rounded"></i>
-                                            </button>
-                                            <div class="dropdown-menu">
-                                                <a class="dropdown-item text-primary" href="javascript:void(0);"><i
-                                                        class="bx bx-show-alt me-1 text-primary"></i> View</a>
-                                                <a class="dropdown-item text-success" href="javascript:void(0);"><i
-                                                        class="bx bx-edit-alt me-1 text-success"></i> Edit</a>
-                                                <a class="dropdown-item text-danger" href="javascript:void(0);"><i
-                                                        class="bx bx-trash me-1 text-danger"></i>
-                                                    Delete</a>
-                                            </div>
+                                        <div class="form-check form-switch mb-2">
+                                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault"
+                                                checked />
+                                            <label class="form-check-label" for="flexSwitchCheckDefault"></label>
                                         </div>
                                     </td>
+                                    <td>
+                                        <button type="button"
+                                            class="btn btn-sm rounded-pill btn-icon btn-outline-primary"
+                                            data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top"
+                                            data-bs-html="true"
+                                            title="<i class='bx bx-book-open bx-xs' ></i> <span>view</span>">
+                                            <span class="tf-icons bx bx-book-open"></span>
+                                        </button>
+                                        <button type="button"
+                                            class="btn btn-sm rounded-pill btn-icon btn-outline-success"
+                                            data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top"
+                                            data-bs-html="true"
+                                            title="<i class='bx bx-edit bx-xs' ></i> <span>edit</span>">
+                                            <span class="tf-icons bx bx-edit"></span>
+                                        </button>
+                                        <form action="/account/{{ $account->id }}" method="post" class="d-inline">
+                                            @method('delete')
+                                            @csrf
+                                            <button type="submit"
+                                                class="btn btn-sm rounded-pill btn-icon btn-outline-danger"
+                                                data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top"
+                                                data-bs-html="true"
+                                                title="<i class='bx bx-trash bx-xs' ></i> <span>delete</span>">
+                                                <span class="tf-icons bx bx-trash"></span>
+                                            </button>
+                                        </form>
+                                    </td>
                                 </tr>
+
+                                {{-- MODAL EDIT --}}
+
+
+                                {{-- MODAL DELETE --}}
+                                <div class="modal fade" id="ModalDelete" tabindex="-1" aria-labelledby="ModalLabel"
+                                    aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Delete Account</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close">
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>Apakah anda yakin ingin menghapus data {{ $account->username }} ?</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Close</button>
+
+                                                <button type="button" class="btn btn-danger"> <span
+                                                        class="tf-icons bx bx-trash"></span>Delete</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                         @endforeach
                         </tbody>
                     </table>

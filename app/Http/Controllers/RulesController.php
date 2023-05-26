@@ -35,7 +35,7 @@ class RulesController extends Controller
 
         Tata_tertib::create($validatedData);
         $data = Tata_tertib::all();
-        return view('hrd.rules', compact('data'));
+        return redirect('/rules')->with('success', 'Data telah berhasil ditambahkan');
     }
 
     /**
@@ -65,8 +65,9 @@ class RulesController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Tata_tertib $id)
     {
-        //
+        Tata_tertib::destroy($id->id);
+        return redirect('/rules')->with('delete', 'Data telah berhasil dihapus');
     }
 }

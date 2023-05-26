@@ -2,6 +2,18 @@
 @section('hrd')
     <div class="container-xxl flex-grow-1 container-p-y">
         <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Resource /</span> Alur Pengerjaan</h4>
+        @if (session()->has('success'))
+            <div class="alert alert-success alert-dismissible fade show mx-auto" role="alert">
+                {{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+        @if (session()->has('delete'))
+            <div class="alert alert-success alert-dismissible fade show mx-auto" role="alert">
+                {{ session('delete') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
         <!-- Modal -->
         <div class="modal fade" id="createAlur" tabindex="-1" aria-labelledby="createAlur" aria-hidden="true">
             <div class="modal-dialog">
@@ -72,21 +84,27 @@
                                     ...
                                 </td>
                                 <td>
-                                    <div class="dropdown">
-                                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
-                                            data-bs-toggle="dropdown">
-                                            <i class="bx bx-dots-vertical-rounded"></i>
+                                    <button type="button" class="btn btn-sm rounded-pill btn-icon btn-outline-primary"
+                                        data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top"
+                                        data-bs-html="true"
+                                        title="<i class='bx bx-book-open bx-xs' ></i> <span>view</span>">
+                                        <span class="tf-icons bx bx-book-open"></span>
+                                    </button>
+                                    <button type="button" class="btn btn-sm rounded-pill btn-icon btn-outline-success"
+                                        data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top"
+                                        data-bs-html="true" title="<i class='bx bx-edit bx-xs' ></i> <span>edit</span>">
+                                        <span class="tf-icons bx bx-edit"></span>
+                                    </button>
+                                    <form action="/alur/{{ $alur->id }}" method="post" class="d-inline">
+                                        @method('delete')
+                                        @csrf
+                                        <button type="submit" class="btn btn-sm rounded-pill btn-icon btn-outline-danger"
+                                            data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top"
+                                            data-bs-html="true"
+                                            title="<i class='bx bx-trash bx-xs' ></i> <span>delete</span>">
+                                            <span class="tf-icons bx bx-trash"></span>
                                         </button>
-                                        <div class="dropdown-menu">
-                                            <a class="dropdown-item text-primary" href="javascript:void(0);"><i
-                                                    class="bx bx-show-alt me-1 text-primary"></i> View</a>
-                                            <a class="dropdown-item text-success" href="javascript:void(0);"><i
-                                                    class="bx bx-edit-alt me-1 text-success"></i> Edit</a>
-                                            <a class="dropdown-item text-danger" href="javascript:void(0);"><i
-                                                    class="bx bx-trash me-1 text-danger"></i>
-                                                Delete</a>
-                                        </div>
-                                    </div>
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach

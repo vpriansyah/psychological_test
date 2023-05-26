@@ -55,21 +55,48 @@
                                 ...
                             </td>
                             <td>
-                                <div class="dropdown">
-                                    <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
-                                        data-bs-toggle="dropdown">
-                                        <i class="bx bx-dots-vertical-rounded"></i>
-                                    </button>
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="javascript:void(0);"><i
-                                                class="bx bx-edit-alt me-1"></i> Edit</a>
-                                        <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-trash me-1"></i>
-                                            Delete</a>
-                                    </div>
-                                </div>
+                                <button type="button" class="btn btn-sm rounded-pill btn-icon btn-outline-primary"
+                                    data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top"
+                                    data-bs-html="true" title="<i class='bx bx-book-open bx-xs' ></i> <span>view</span>">
+                                    <span class="tf-icons bx bx-book-open"></span>
+                                </button>
+                                <button type="button" class="btn btn-sm rounded-pill btn-icon btn-outline-success"
+                                    data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top"
+                                    data-bs-html="true" title="<i class='bx bx-edit bx-xs' ></i> <span>edit</span>">
+                                    <span class="tf-icons bx bx-edit"></span>
+                                </button>
+                                <button type="button" class="btn btn-sm rounded-pill btn-icon btn-outline-danger"
+                                    data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top"
+                                    data-bs-html="true" title="<i class='bx bx-trash bx-xs' ></i> <span>delete</span>">
+                                    <span class="tf-icons bx bx-trash" data-bs-toggle="modal"
+                                        data-bs-target="#ModalDelete"></span>
+                                </button>
                             </td>
                         </tr>
 
+                        {{-- MODAL DELETE --}}
+                        <div class="modal fade" id="ModalDelete" tabindex="-1" aria-labelledby="ModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Delete Account</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>Apakah anda ingin menghapus data ini ?</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Close</button>
+
+                                        <button type="button" class="btn btn-danger"> <span
+                                                class="tf-icons bx bx-trash"></span>Delete</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
                     </tbody>
                 </table>

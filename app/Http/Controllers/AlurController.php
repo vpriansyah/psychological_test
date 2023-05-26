@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Alur;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class AlurController extends Controller
 {
@@ -33,10 +34,8 @@ class AlurController extends Controller
         $validatedData = $request->validate([
             'alur_pengerjaan' => ['required', 'min:3', 'max:255', 'unique:alur'],
         ]);
-
         Alur::create($validatedData);
-        $data = Alur::all();
-        return view('hrd.alur', compact('data'));
+        return redirect('/alur')->with('success', 'Data telah berhasil ditambahkan');
     }
 
     /**
@@ -66,8 +65,9 @@ class AlurController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Alur $id)
     {
-        //
+        Alur::destroy($id->id);
+        return redirect('/alur')->with('delete', 'Data telah berhasil dihapus');
     }
 }

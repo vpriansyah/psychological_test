@@ -36,7 +36,6 @@
                             <th>Email</th>
                             <th>Alasan</th>
                             <th>Status</th>
-                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
@@ -53,26 +52,34 @@
                                     {{ $ajuan->keperluan }}
                                 </td>
                                 <td>
-                                    ...
-                                </td>
-                                <td>
-                                    <div class="dropdown">
-                                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
-                                            data-bs-toggle="dropdown">
-                                            <i class="bx bx-dots-vertical-rounded"></i>
-                                        </button>
-                                        <div class="dropdown-menu">
-                                            <a class="dropdown-item text-primary" href="javascript:void(0);"><i
-                                                    class="bx bx-show-alt me-1 text-primary"></i> View</a>
-                                            <a class="dropdown-item text-success" href="javascript:void(0);"><i
-                                                    class="bx bx-edit-alt me-1 text-success"></i> Edit</a>
-                                            <a class="dropdown-item text-danger" href="javascript:void(0);"><i
-                                                    class="bx bx-trash me-1 text-danger"></i>
-                                                Delete</a>
-                                        </div>
-                                    </div>
+                                    .....
                                 </td>
                             </tr>
+
+                            {{-- MODAL DELETE --}}
+                            <div class="modal fade" id="ModalDelete" tabindex="-1" aria-labelledby="ModalLabel"
+                                aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Delete Account</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close">
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Apakah anda ingin menghapus data ini ?</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Close</button>
+
+                                            <button type="button" class="btn btn-danger"> <span
+                                                    class="tf-icons bx bx-trash"></span>Delete</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         @endforeach
 
                     </tbody>

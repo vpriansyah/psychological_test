@@ -37,8 +37,7 @@ class AccountController extends Controller
         ]);
 
         User::create($validatedData);
-        $data = User::all();
-        return view('admin.account', compact('data'));
+        return redirect('/account')->with('success', 'Data telah berhasil ditambahkan');
     }
 
     /**
@@ -68,8 +67,9 @@ class AccountController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(User $id)
     {
-        //
+        User::destroy($id->id);
+        return redirect('/account')->with('delete', 'Data telah berhasil dihapus');
     }
 }

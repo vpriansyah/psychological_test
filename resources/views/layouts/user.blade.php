@@ -7,11 +7,12 @@
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <title>Dashboard Admin</title>
+    <title>Dashboard User</title>
 
     <meta name="description" content="" />
 
     <!-- Fonts -->
+    <link rel="stylesheet" href="assets/admin&login/vendor/libs/animate-css/animate.css">
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -50,7 +51,7 @@
 
             <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
                 <div class="app-brand demo">
-                    <a href="admin" class="app-brand-link">
+                    <a href="user" class="app-brand-link">
                         <span class="app-brand-text demo menu-text fw-bolder ms-2">Calon Karyawan</span>
                     </a>
 
@@ -65,7 +66,7 @@
                 <ul class="menu-inner py-1">
                     <!-- Dashboard -->
                     <li class="menu-item">
-                        <a href="/admin" class="menu-link">
+                        <a href="/user" class="menu-link">
                             <i class="menu-icon tf-icons bx bx-home-circle"></i>
                             <div data-i18n="Analytics">Dashboard</div>
                         </a>
@@ -95,15 +96,43 @@
                     <li class="menu-header small text-uppercase"><span class="menu-header-text">Logout</span></li>
 
                     {{-- Logout --}}
-                    <li class="menu-item text-danger">
-                        <a href="#" class="menu-link text-danger">
-                            <i class="menu-icon tf-icons bx bx-right-arrow-circle bx-fade-right-hover"></i>
-                            <div data-i18n="Tables">Logout</div>
-                        </a>
+                    <li class="menu-item">
+                        &emsp;<button type="button" class="btn rounded-pill btn-danger" data-bs-toggle="modal"
+                            data-bs-target="#LogoutModal">
+                            <span class="tf-icons bx bx-right-arrow-circle"></span>&nbsp; Logout
+                        </button>
+                        </form>
                     </li>
+
                 </ul>
             </aside>
             <!-- / Menu -->
+
+            {{-- MODAL LOGOUT --}}
+            <div class="modal animate__animated animate__swing" id="LogoutModal" tabindex="-1"
+                aria-labelledby="LogoutModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Logout</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Apakah anda yakin ingin keluar ?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <form action="/logout" method="post">
+                                @csrf
+                                <button type="submit" class="btn btn-danger">Logout</button>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
 
             <!-- Layout container -->
             <div class="layout-page">
@@ -143,6 +172,12 @@
 
     <!-- Core JS -->
     <!-- build:assets/admin&login/vendor/js/core.js -->
+    <script>
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+        var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
+            return new Tooltip(tooltipTriggerEl);
+        });
+    </script>
     <script src="assets/admin&login/vendor/libs/jquery/jquery.js"></script>
     <script src="assets/admin&login/vendor/libs/popper/popper.js"></script>
     <script src="assets/admin&login/vendor/js/bootstrap.js"></script>

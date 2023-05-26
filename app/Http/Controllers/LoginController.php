@@ -32,15 +32,24 @@ class LoginController extends Controller
 
         if (Auth::attempt($login)) {
             $request->session()->regenerate();
+            $request->session()->regenerateToken();
 
-            return redirect()->intended('/admin');
+            return redirect()->intended('/direct');
         }
-        return back()->with('loginError', 'Login failed!');
+        return back()->with('loginError', 'Username / Password Salah !');
     }
 
     /**
      * Show the form for creating a new resource.
      */
+    public function logout()
+    {
+        Auth::logout();
+        request()->session()->invalidate();
+        request()->session()->regenerateToken();
+        return redirect('/');
+    }
+
     public function create()
     {
         //

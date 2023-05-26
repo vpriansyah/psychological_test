@@ -55,18 +55,11 @@
                                 ...
                             </td>
                             <td>
-                                <div class="dropdown">
-                                    <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
-                                        data-bs-toggle="dropdown">
-                                        <i class="bx bx-dots-vertical-rounded"></i>
-                                    </button>
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="javascript:void(0);"><i
-                                                class="bx bx-edit-alt me-1"></i> View</a>
-                                        <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-trash me-1"></i>
-                                            Delete</a>
-                                    </div>
-                                </div>
+                                <button type="button" class="btn btn-sm rounded-pill btn-icon btn-outline-primary"
+                                    data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top"
+                                    data-bs-html="true" title="<i class='bx bx-book-open bx-xs' ></i> <span>view</span>">
+                                    <span class="tf-icons bx bx-book-open"></span>
+                                </button>
                             </td>
                         </tr>
 

@@ -31,6 +31,7 @@ class Paket_soalController extends Controller
     {
         $validatedData = $request->validate([
             'soal' => ['required', 'min:3', 'max:255'],
+            'kategori_id' => ['required'],
             'jawaban_A' => ['required'],
             'jawaban_B' => ['required'],
             'jawaban_C' => ['required'],
@@ -44,8 +45,7 @@ class Paket_soalController extends Controller
         ]);
 
         Poin::create($validatedData);
-        $data = Poin::all();
-        return view('admin.paket_soal', compact('data'));
+        return redirect('/paket_soal')->with('success', 'Data telah berhasil ditambahkan');
     }
 
     /**
@@ -75,8 +75,9 @@ class Paket_soalController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Poin $id)
     {
-        //
+        Poin::destroy($id->id);
+        return redirect('/paket_soal')->with('delete', 'Data telah berhasil dihapus');
     }
 }

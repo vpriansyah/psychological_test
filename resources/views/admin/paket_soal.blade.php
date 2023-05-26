@@ -25,6 +25,18 @@
 
     <div class="container-xxl flex-grow-1 container-p-y">
         <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Resource /</span> Paket Soal</h4>
+        @if (session()->has('success'))
+            <div class="alert alert-success alert-dismissible fade show mx-auto" role="alert">
+                {{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+        @if (session()->has('delete'))
+            <div class="alert alert-success alert-dismissible fade show mx-auto" role="alert">
+                {{ session('delete') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
         <div class="modal fade" id="createSoal" tabindex="-1" aria-labelledby="createSoal" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -38,6 +50,19 @@
                             <div class="card-body">
                                 <form id="formAuthentication" class="mb-3" action="/paket_soal" method="POST">
                                     @csrf
+                                    <div class="mb-3">
+                                        <label for="soal" class="form-label">Kategori</label>
+                                        <select class="form-select @error('kategori_id') is-invalid @enderror"
+                                            aria-label="Default select example" name="kategori_id">
+                                            @error('kategori_id')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                            <option selected>Kategori Soal</option>
+                                            <option value="1">TKP</option>
+                                        </select>
+                                    </div>
                                     <div class="mb-3">
                                         <label for="soal" class="form-label">Soal</label>
                                         <input type="text" id="soal" name="soal"
@@ -59,15 +84,31 @@
                                                 {{ $message }}
                                             </div>
                                         @enderror
-                                        <input type="number" list="poin" id="poin_A" name="poin_A"
-                                            class="form-control" placeholder="Enter your Poin" autofocus required>
-                                        <datalist id="poin">
-                                            <option value="1">
-                                            <option value="2">
-                                            <option value="3">
-                                            <option value="4">
-                                            <option value="5">
-                                        </datalist>
+                                        <div class="form-check form-check-inline mt-3">
+                                            <input class="form-check-input" name="poin_A" type="checkbox"
+                                                id="inlineCheckbox1" value="1" />
+                                            <label class="form-check-label" for="inlineCheckbox1">1</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" name="poin_A" type="checkbox"
+                                                id="inlineCheckbox2" value="2" />
+                                            <label class="form-check-label" for="inlineCheckbox2">2</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" name="poin_A" type="checkbox"
+                                                id="inlineCheckbox3" value="3" />
+                                            <label class="form-check-label" for="inlineCheckbox3">3</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" name="poin_A" type="checkbox"
+                                                id="inlineCheckbox3" value="4" />
+                                            <label class="form-check-label" for="inlineCheckbox3">4</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" name="poin_A" type="checkbox"
+                                                id="inlineCheckbox3" value="5" />
+                                            <label class="form-check-label" for="inlineCheckbox3">5</label>
+                                        </div>
                                     </div>
                                     <div class="mb-3">
                                         <label for="jawaban_B" class="form-label">Jawaban B<B></B></label>
@@ -79,15 +120,31 @@
                                                 {{ $message }}
                                             </div>
                                         @enderror
-                                        <input type="number" class="form-control" list="poin" name="poin_B"
-                                            id="poin_B" placeholder="Enter your Poin">
-                                        <datalist id="poin">
-                                            <option value="1">
-                                            <option value="2">
-                                            <option value="3">
-                                            <option value="4">
-                                            <option value="5">
-                                        </datalist>
+                                        <div class="form-check form-check-inline mt-3">
+                                            <input class="form-check-input" name="poin_B" type="checkbox"
+                                                id="inlineCheckbox1" value="1" />
+                                            <label class="form-check-label" for="inlineCheckbox1">1</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" name="poin_B" type="checkbox"
+                                                id="inlineCheckbox2" value="2" />
+                                            <label class="form-check-label" for="inlineCheckbox2">2</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" name="poin_B" type="checkbox"
+                                                id="inlineCheckbox3" value="3" />
+                                            <label class="form-check-label" for="inlineCheckbox3">3</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" name="poin_B" type="checkbox"
+                                                id="inlineCheckbox3" value="4" />
+                                            <label class="form-check-label" for="inlineCheckbox3">4</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" name="poin_B" type="checkbox"
+                                                id="inlineCheckbox3" value="5" />
+                                            <label class="form-check-label" for="inlineCheckbox3">5</label>
+                                        </div>
                                     </div>
                                     <div class="mb-3">
                                         <label for="jawaban_C" class="form-label">Jawaban C</label>
@@ -99,15 +156,31 @@
                                                 {{ $message }}
                                             </div>
                                         @enderror
-                                        <input type="number" class="form-control" list="poin" name="poin_C"
-                                            id="poin_C" placeholder="Enter your Poin">
-                                        <datalist id="poin">
-                                            <option value="1">
-                                            <option value="2">
-                                            <option value="3">
-                                            <option value="4">
-                                            <option value="5">
-                                        </datalist>
+                                        <div class="form-check form-check-inline mt-3">
+                                            <input class="form-check-input" name="poin_C" type="checkbox"
+                                                id="inlineCheckbox1" value="1" />
+                                            <label class="form-check-label" for="inlineCheckbox1">1</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" name="poin_C" type="checkbox"
+                                                id="inlineCheckbox2" value="2" />
+                                            <label class="form-check-label" for="inlineCheckbox2">2</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" name="poin_C" type="checkbox"
+                                                id="inlineCheckbox3" value="3" />
+                                            <label class="form-check-label" for="inlineCheckbox3">3</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" name="poin_C" type="checkbox"
+                                                id="inlineCheckbox3" value="4" />
+                                            <label class="form-check-label" for="inlineCheckbox3">4</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" name="poin_C" type="checkbox"
+                                                id="inlineCheckbox3" value="5" />
+                                            <label class="form-check-label" for="inlineCheckbox3">5</label>
+                                        </div>
                                     </div>
                                     <div class="mb-3">
                                         <label for="jawaban_D" class="form-label">Jawaban D</label>
@@ -119,15 +192,31 @@
                                                 {{ $message }}
                                             </div>
                                         @enderror
-                                        <input type="number" class="form-control" list="poin" name="poin_D"
-                                            id="poin_D" placeholder="Enter your Poin">
-                                        <datalist id="poin">
-                                            <option value="1">
-                                            <option value="2">
-                                            <option value="3">
-                                            <option value="4">
-                                            <option value="5">
-                                        </datalist>
+                                        <div class="form-check form-check-inline mt-3">
+                                            <input class="form-check-input" name="poin_D" type="checkbox"
+                                                id="inlineCheckbox1" value="1" />
+                                            <label class="form-check-label" for="inlineCheckbox1">1</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" name="poin_D" type="checkbox"
+                                                id="inlineCheckbox2" value="2" />
+                                            <label class="form-check-label" for="inlineCheckbox2">2</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" name="poin_D" type="checkbox"
+                                                id="inlineCheckbox3" value="3" />
+                                            <label class="form-check-label" for="inlineCheckbox3">3</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" name="poin_D" type="checkbox"
+                                                id="inlineCheckbox3" value="4" />
+                                            <label class="form-check-label" for="inlineCheckbox3">4</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" name="poin_D" type="checkbox"
+                                                id="inlineCheckbox3" value="5" />
+                                            <label class="form-check-label" for="inlineCheckbox3">5</label>
+                                        </div>
                                     </div>
                                     <div class="mb-3">
                                         <label for="jawaban_E" class="form-label">Jawaban E</label>
@@ -139,15 +228,31 @@
                                                 {{ $message }}
                                             </div>
                                         @enderror
-                                        <input type="number" class="form-control" list="poin" name="poin_E"
-                                            id="poin_E" placeholder="Enter your Poin">
-                                        <datalist id="poin">
-                                            <option value="1">
-                                            <option value="2">
-                                            <option value="3">
-                                            <option value="4">
-                                            <option value="5">
-                                        </datalist>
+                                        <div class="form-check form-check-inline mt-3">
+                                            <input class="form-check-input" name="poin_E" type="checkbox"
+                                                id="inlineCheckbox1" value="1" />
+                                            <label class="form-check-label" for="inlineCheckbox1">1</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" name="poin_E" type="checkbox"
+                                                id="inlineCheckbox2" value="2" />
+                                            <label class="form-check-label" for="inlineCheckbox2">2</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" name="poin_E" type="checkbox"
+                                                id="inlineCheckbox3" value="3" />
+                                            <label class="form-check-label" for="inlineCheckbox3">3</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" name="poin_E" type="checkbox"
+                                                id="inlineCheckbox3" value="4" />
+                                            <label class="form-check-label" for="inlineCheckbox3">4</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" name="poin_E" type="checkbox"
+                                                id="inlineCheckbox3" value="5" />
+                                            <label class="form-check-label" for="inlineCheckbox3">5</label>
+                                        </div>
                                     </div>
                             </div>
                             <button type="submit" class="btn btn-primary">Save changes</button>
@@ -182,6 +287,7 @@
                     <thead>
                         <tr>
                             <th>Soal</th>
+                            <th>Kategori</th>
                             <th>Jawaban A</th>
                             <th>Jawaban B</th>
                             <th>Jawaban C</th>
@@ -201,6 +307,9 @@
                                 <td>
                                     <i class="fab fa-bootstrap fa-lg text-primary me-3"></i>
                                     <strong> {{ $poin->soal }}</strong>
+                                </td>
+                                <td>
+                                    {{ $poin->kategori_id }}
                                 </td>
                                 <td>
                                     {{ $poin->jawaban_A }}
@@ -233,23 +342,54 @@
                                     {{ $poin->poin_E }}
                                 </td>
                                 <td>
-                                    <div class="dropdown">
-                                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
-                                            data-bs-toggle="dropdown">
-                                            <i class="bx bx-dots-vertical-rounded"></i>
+                                    <button type="button" class="btn btn-sm rounded-pill btn-icon btn-outline-primary"
+                                        data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top"
+                                        data-bs-html="true"
+                                        title="<i class='bx bx-book-open bx-xs' ></i> <span>view</span>">
+                                        <span class="tf-icons bx bx-book-open"></span>
+                                    </button>
+                                    <button type="button" class="btn btn-sm rounded-pill btn-icon btn-outline-success"
+                                        data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top"
+                                        data-bs-html="true" title="<i class='bx bx-edit bx-xs' ></i> <span>edit</span>">
+                                        <span class="tf-icons bx bx-edit"></span>
+                                    </button>
+                                    <form action="/paket_soal/{{ $poin->id }}" method="post" class="d-inline">
+                                        @method('delete')
+                                        @csrf
+                                        <button type="submit" class="btn btn-sm rounded-pill btn-icon btn-outline-danger"
+                                            data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top"
+                                            data-bs-html="true"
+                                            title="<i class='bx bx-trash bx-xs' ></i> <span>delete</span>">
+                                            <span class="tf-icons bx bx-trash"></span>
                                         </button>
-                                        <div class="dropdown-menu">
-                                            <a class="dropdown-item text-primary" href="javascript:void(0);"><i
-                                                    class="bx bx-show-alt me-1 text-primary"></i> View</a>
-                                            <a class="dropdown-item text-success" href="javascript:void(0);"><i
-                                                    class="bx bx-edit-alt me-1 text-success"></i> Edit</a>
-                                            <a class="dropdown-item text-danger" href="javascript:void(0);"><i
-                                                    class="bx bx-trash me-1 text-danger"></i>
-                                                Delete</a>
-                                        </div>
-                                    </div>
+                                    </form>
                                 </td>
                             </tr>
+
+                            {{-- MODAL DELETE --}}
+                            <div class="modal fade" id="ModalDelete" tabindex="-1" aria-labelledby="ModalLabel"
+                                aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Delete Account</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close">
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Apakah anda ingin menghapus data ini ?</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Close</button>
+
+                                            <button type="button" class="btn btn-danger"> <span
+                                                    class="tf-icons bx bx-trash"></span>Delete</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         @endforeach
 
                     </tbody>
