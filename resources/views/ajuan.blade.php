@@ -43,7 +43,6 @@
 
 <body>
     <!-- Content -->
-
     <div class="container-xxl">
         <div class="authentication-wrapper authentication-basic container-p-y">
             <div class="authentication-inner">
@@ -82,6 +81,8 @@
                                     </div>
                                 @enderror
                             </div>
+                            <input type="text" id="status" name="status" class="form-control" value="0"
+                                hidden />
                             <div class="mb-3 form-password-toggle">
                                 <label class="form-label @error('keperluan') is-invalid @enderror"
                                     for="keperluan">Keperluan</label>
@@ -96,6 +97,13 @@
                             </div>
 
                             <div class="mb-3">
+                                @if (session()->has('success'))
+                                    <div class="alert alert-success alert-dismissible fade show mx-auto" role="alert">
+                                        {{ session('success') }}
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                            aria-label="Close"></button>
+                                    </div>
+                                @endif
                             </div>
                             <button type="submit" class="btn btn-primary d-grid w-100">Ajukan</button>
                         </form>

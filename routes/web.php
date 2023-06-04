@@ -77,11 +77,18 @@ Route::middleware(['auth', 'AdminMid'])->group(function () {
     });
     Route::get('/account', [AccountController::class, 'index']);
     Route::post('/account', [AccountController::class, 'store']);
+    Route::get('/changeStatus', [AccountController::class, 'changeUserStatus']);
     Route::delete('/account/{id}', [AccountController::class, 'destroy']);
+    Route::put('/account/edit/{id}', [AccountController::class, 'update']);
+
     Route::get('/notification', [NotificationController::class, 'index']);
+    Route::delete('/notification/{id}', [NotificationController::class, 'destroy']);
+    Route::get('/changeStatusAjuan', [NotificationController::class, 'changeAjuanStatus']);
+
     Route::get('/paket_soal', [Paket_soalController::class, 'index']);
     Route::post('/paket_soal', [Paket_soalController::class, 'store']);
     Route::delete('/paket_soal/{id}', [Paket_soalController::class, 'destroy']);
+    Route::put('/paket_soal/edit/{id}', [Paket_soalController::class, 'update']);
     Route::get('/laporan', [LaporanController::class, 'index']);
 });
 
@@ -98,10 +105,14 @@ Route::middleware(['auth', 'HrdMid'])->group(function () {
     });
     Route::get('/rules', [RulesController::class, 'index']);
     Route::post('/rules', [RulesController::class, 'store']);
+    Route::put('/rules/edit/{id}', [RulesController::class, 'update']);
     Route::delete('/rules/{id}', [RulesController::class, 'destroy']);
+
     Route::get('/alur', [AlurController::class, 'index']);
     Route::post('/alur', [AlurController::class, 'store']);
+    Route::put('/alur/edit/{id}', [AlurController::class, 'update']);
     Route::delete('/alur/{id}', [AlurController::class, 'destroy']);
+
     Route::get('/view_laporan', [View_laporanController::class, 'index']);
 });
 // <!-- HRD Route -->

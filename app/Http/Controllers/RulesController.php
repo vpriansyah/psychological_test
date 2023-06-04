@@ -34,7 +34,6 @@ class RulesController extends Controller
         ]);
 
         Tata_tertib::create($validatedData);
-        $data = Tata_tertib::all();
         return redirect('/rules')->with('success', 'Data telah berhasil ditambahkan');
     }
 
@@ -57,9 +56,19 @@ class RulesController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Tata_tertib $id)
     {
-        //
+        $rules = [];
+
+        if ($request->rules_pengerjaan != $id->rules_pengerjaan) {
+            $rules['rules_pengerjaan'] = 'required|min:3|max:255|unique:rules';
+        }
+
+        $validatedData = $request->validate($rules);
+        Tata_tertib::where('id', $id->id)
+            ->update($validatedData);
+
+        return redirect('/rules')->with('update', 'Data telah berhasil diupdate');
     }
 
     /**

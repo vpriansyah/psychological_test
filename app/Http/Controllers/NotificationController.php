@@ -56,11 +56,18 @@ class NotificationController extends Controller
         //
     }
 
+    public function changeAjuanStatus(Request $request)
+    {
+        $users = Ajuan::find($request->id);
+        $users->status = $request->status;
+        $users->save();
+    }
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(Ajuan $id)
     {
-        //
+        Ajuan::destroy($id->id);
+        return redirect('/notification')->with('delete', 'Data telah berhasil dihapus');
     }
 }

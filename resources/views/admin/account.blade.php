@@ -5,7 +5,7 @@
     <div class="content-wrapper">
 
 
-        <!-- Modal -->
+        <!-- Modal Create -->
         <div class="modal fade" id="createAccount" tabindex="-1" aria-labelledby="createAccount" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -23,8 +23,7 @@
                                         <label for="username" class="form-label">Username</label>
                                         <input type="text" id="username" name="username"
                                             class="form-control @error('username') is-invalid @enderror"
-                                            placeholder="Enter your username" autofocus required
-                                            value="{{ old('username') }}" />
+                                            placeholder="Enter your username" autofocus required />
                                         @error('username')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
@@ -35,7 +34,7 @@
                                         <label for="email" class="form-label">Email</label>
                                         <input type="email" id="email" name="email"
                                             class="form-control @error('email') is-invalid @enderror"
-                                            placeholder="Enter your email" required value="{{ old('email') }}" />
+                                            placeholder="Enter your email" required />
                                         @error('email')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
@@ -71,6 +70,8 @@
                                             <option value="3">admin</option>
                                         </select>
                                     </div>
+                                    <input type="text" id="status" name="status" class="form-control" value="0"
+                                        hidden />
                             </div>
                             <button type="submit" class="btn btn-primary">Save changes</button>
                         </div>
@@ -89,11 +90,18 @@
         </div>
 
 
+
         <!-- Content -->
 
         <div class="container-xxl flex-grow-1 container-p-y">
             <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Account Setting /</span>
                 Account</h4>
+            @if (session()->has('update'))
+                <div class="alert alert-success alert-dismissible fade show mx-auto" role="alert">
+                    {{ session('update') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
             @if (session()->has('success'))
                 <div class="alert alert-success alert-dismissible fade show mx-auto" role="alert">
                     {{ session('success') }}
@@ -142,12 +150,13 @@
                                         {{ $account->password }}
                                     </td>
                                     <td>
-                                        {{ $account->role_id }}
+                                        {{ $account->role->role }}
                                     </td>
                                     <td>
                                         <div class="form-check form-switch mb-2">
-                                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault"
-                                                checked />
+                                            <input data-id="{{ $account->id }}" class="form-check-input"
+                                                type="checkbox" id="flexSwitchCheckDefault"
+                                                {{ $account->status ? 'checked' : '' }} />
                                             <label class="form-check-label" for="flexSwitchCheckDefault"></label>
                                         </div>
                                     </td>
@@ -157,35 +166,200 @@
                                             data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top"
                                             data-bs-html="true"
                                             title="<i class='bx bx-book-open bx-xs' ></i> <span>view</span>">
-                                            <span class="tf-icons bx bx-book-open"></span>
+                                            <span class="tf-icons bx bx-book-open" data-bs-toggle="modal"
+                                                data-bs-target="#view{{ $account->id }}"></span>
                                         </button>
                                         <button type="button"
                                             class="btn btn-sm rounded-pill btn-icon btn-outline-success"
                                             data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top"
                                             data-bs-html="true"
                                             title="<i class='bx bx-edit bx-xs' ></i> <span>edit</span>">
-                                            <span class="tf-icons bx bx-edit"></span>
+                                            <span class="tf-icons bx bx-edit" data-bs-toggle="modal"
+                                                data-bs-target="#edit{{ $account->id }}"></span>
                                         </button>
-                                        <form action="/account/{{ $account->id }}" method="post" class="d-inline">
-                                            @method('delete')
-                                            @csrf
-                                            <button type="submit"
-                                                class="btn btn-sm rounded-pill btn-icon btn-outline-danger"
-                                                data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top"
-                                                data-bs-html="true"
-                                                title="<i class='bx bx-trash bx-xs' ></i> <span>delete</span>">
-                                                <span class="tf-icons bx bx-trash"></span>
-                                            </button>
-                                        </form>
+                                        <button type="button" class="btn btn-sm rounded-pill btn-icon btn-outline-danger"
+                                            data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top"
+                                            data-bs-html="true"
+                                            title="<i class='bx bx-trash bx-xs' ></i> <span>delete</span>">
+                                            <span class="tf-icons bx bx-trash" data-bs-toggle="modal"
+                                                data-bs-target="#ModalDelete{{ $account->id }}"></span>
+                                        </button>
                                     </td>
                                 </tr>
 
+                                {{-- MODAL VIEW --}}
+
+                                <div class="modal fade" id="view{{ $account->id }}" tabindex="-1"
+                                    aria-labelledby="createAccount" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="createAccount">View Account</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <!-- Register Card -->
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <form id="formAuthentication" class="mb-3" action=""
+                                                            method="">
+
+                                                            <div class="mb-3">
+                                                                <label for="username" class="form-label">Username</label>
+                                                                <input type="text" id="username" name="username"
+                                                                    class="form-control" placeholder="Enter your username"
+                                                                    autofocus required value="{{ $account->username }}"
+                                                                    disabled />
+
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label for="email" class="form-label">Email</label>
+                                                                <input type="email" id="email" name="email"
+                                                                    class="form-control" placeholder="Enter your email"
+                                                                    required value="{{ $account->email }}" disabled />
+
+                                                            </div>
+                                                            <div class="mb-3 form-password-toggle">
+                                                                <label class="form-label" for="password">Password</label>
+                                                                <div class="input-group input-group-merge">
+                                                                    <input type="text" id="password" name="password"
+                                                                        class="form-control" aria-describedby="password"
+                                                                        required value="{{ $account->password }}"
+                                                                        disabled />
+                                                                </div>
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <select class="form-select"
+                                                                    aria-label="Default select example" name="role_id"
+                                                                    disabled>
+                                                                    <option selected>{{ $account->role_id }}</option>
+                                                                    <option value="1">User</option>
+                                                                    <option value="2">HRD</option>
+                                                                    <option value="3">admin</option>
+                                                                </select>
+                                                            </div>
+                                                            <input type="text" id="status" name="status"
+                                                                class="form-control" value="0" hidden />
+                                                    </div>
+                                                </div>
+                                                </form>
+
+
+                                                <!-- View Card -->
+                                            </div>
+                                            <br>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-primary"
+                                                    data-bs-dismiss="modal">Close</button>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
                                 {{-- MODAL EDIT --}}
+
+                                <div class="modal fade" id="edit{{ $account->id }}" tabindex="-1"
+                                    aria-labelledby="createAccount" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="createAccount">Edit Account User</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <!-- Register Card -->
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <form id="formAuthentication" class="mb-3"
+                                                            action="/account/edit/{{ $account->id }}" method="POST">
+                                                            @method('put')
+                                                            @csrf
+                                                            <div class="mb-3">
+                                                                <label for="username" class="form-label">Username</label>
+                                                                <input type="text" id="username" name="username"
+                                                                    class="form-control @error('username') is-invalid @enderror"
+                                                                    placeholder="Enter your username" autofocus required
+                                                                    value="{{ $account->username }}" />
+                                                                @error('username')
+                                                                    <div class="invalid-feedback">
+                                                                        {{ $message }}
+                                                                    </div>
+                                                                @enderror
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label for="email" class="form-label">Email</label>
+                                                                <input type="email" id="email" name="email"
+                                                                    class="form-control @error('email') is-invalid @enderror"
+                                                                    placeholder="Enter your email"
+                                                                    value="{{ $account->email }}" />
+                                                                @error('email')
+                                                                    <div class="invalid-feedback">
+                                                                        {{ $message }}
+                                                                    </div>
+                                                                @enderror
+                                                            </div>
+                                                            <div class="mb-3 form-password-toggle">
+                                                                <label class="form-label" for="password">Password</label>
+                                                                <div class="input-group input-group-merge">
+                                                                    <input type="password" id="password" name="password"
+                                                                        class="form-control @error('password') is-invalid @enderror"
+                                                                        placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                                                                        aria-describedby="password" required
+                                                                        value="{{ $account->password }}" disabled />
+                                                                    <span
+                                                                        class="input-group-text
+                                                                        cursor-pointer"><i
+                                                                            class="bx bx-hide"></i></span>
+                                                                    @error('password')
+                                                                        <div class="invalid-feedback">
+                                                                            {{ $message }}
+                                                                        </div>
+                                                                    @enderror
+                                                                </div>
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <select
+                                                                    class="form-select @error('role_id') is-invalid @enderror"
+                                                                    aria-label="Default select example" name="role_id">
+                                                                    @error('role_id')
+                                                                        <div class="invalid-feedback">
+                                                                            {{ $message }}
+                                                                        </div>
+                                                                    @enderror
+                                                                    <option selected>{{ $account->role_id }}</option>
+                                                                    <option value="1">User</option>
+                                                                    <option value="2">HRD</option>
+                                                                    <option value="3">admin</option>
+                                                                </select>
+                                                            </div>
+                                                            <input type="text" id="status" name="status"
+                                                                class="form-control" value="0" hidden />
+                                                    </div>
+                                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                                </div>
+                                                </form>
+
+
+                                                <!-- Register Card -->
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Close</button>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
 
 
                                 {{-- MODAL DELETE --}}
-                                <div class="modal fade" id="ModalDelete" tabindex="-1" aria-labelledby="ModalLabel"
-                                    aria-hidden="true">
+                                <div class="modal fade" id="ModalDelete{{ $account->id }}" tabindex="-1"
+                                    aria-labelledby="ModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -200,9 +374,13 @@
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary"
                                                     data-bs-dismiss="modal">Close</button>
-
-                                                <button type="button" class="btn btn-danger"> <span
-                                                        class="tf-icons bx bx-trash"></span>Delete</button>
+                                                <form action="/account/{{ $account->id }}" method="post"
+                                                    class="d-inline">
+                                                    @method('delete')
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-danger"> <span
+                                                            class="tf-icons bx bx-trash"></span>Delete</button>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>

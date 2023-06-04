@@ -23,7 +23,8 @@ return new class extends Migration
             $table->string('tempat_lahir')->nullable();
             $table->string('tanggal_lahir')->nullable();
             $table->string('posisi_pilihan')->nullable();
-            $table->integer('role_id')->index();
+            $table->bigInteger('role_id')->index();
+            $table->integer('status')->index();
             $table->rememberToken();
             $table->timestamps();
         });

@@ -12,7 +12,7 @@ class Paket_soalController extends Controller
      */
     public function index()
     {
-        $data = Poin::all();
+        $data = Poin::orderBy('nomor')->get();
         return view('admin.paket_soal', compact('data'));
     }
 
@@ -30,7 +30,8 @@ class Paket_soalController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'soal' => ['required', 'min:3', 'max:255'],
+            'nomor' => ['required', 'unique:paket_soal'],
+            'soal' => ['required', 'min:3', 'max:255', 'unique:paket_soal'],
             'kategori_id' => ['required'],
             'jawaban_A' => ['required'],
             'jawaban_B' => ['required'],
@@ -67,9 +68,33 @@ class Paket_soalController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Poin $id)
     {
-        //
+        $rules = [
+            'kategori_id' => ['required'],
+            'jawaban_A' => ['required'],
+            'jawaban_B' => ['required'],
+            'jawaban_C' => ['required'],
+            'jawaban_D' => ['required'],
+            'jawaban_E' => ['required'],
+            'poin_A' => ['required'],
+            'poin_B' => ['required'],
+            'poin_C' => ['required'],
+            'poin_D' => ['required'],
+            'poin_E' => ['required'],
+        ];
+
+        if ($request->soal != $id->soal) {
+            $rules['soal'] = 'required|min:3|max:255|unique:paket_soal';
+        } else if ($request->nomor != $id->nomor) {
+            $rules['nomor'] = 'required|unique:paket_soal';
+        }
+
+        $validatedData = $request->validate($rules);
+        Poin::where('id', $id->id)
+            ->update($validatedData);
+
+        return redirect('/paket_soal')->with('update', 'Data telah berhasil diupdate');
     }
 
     /**

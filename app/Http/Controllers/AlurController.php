@@ -13,7 +13,8 @@ class AlurController extends Controller
      */
     public function index()
     {
-        $data = Alur::all();
+        // $data = Alur::all();
+        $data = Alur::orderBy('urutan')->get();
         // $datatatatertib = Tata_tertib::all();
         return view('hrd.alur', compact('data'));
     }
@@ -33,6 +34,7 @@ class AlurController extends Controller
     {
         $validatedData = $request->validate([
             'alur_pengerjaan' => ['required', 'min:3', 'max:255', 'unique:alur'],
+            'urutan' => ['required', 'unique:alur'],
         ]);
         Alur::create($validatedData);
         return redirect('/alur')->with('success', 'Data telah berhasil ditambahkan');
@@ -57,9 +59,21 @@ class AlurController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Alur $id)
     {
-        //
+        $rules = [];
+
+        if ($request->alur_pengerjaan != $id->alur_pengerjaan) {
+            $rules['alur_pengerjaan'] = 'required|min:3|max:255|unique:alur';
+        } else if ($request->urutan != $id->urutan) {
+            $rules['urutan'] = 'required|unique:alur';
+        }
+
+        $validatedData = $request->validate($rules);
+        Alur::where('id', $id->id)
+            ->update($validatedData);
+
+        return redirect('/alur')->with('update', 'Data telah berhasil diupdate');
     }
 
     /**

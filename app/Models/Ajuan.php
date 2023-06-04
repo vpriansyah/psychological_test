@@ -12,6 +12,7 @@ class Ajuan extends Model
         'nama',
         'email',
         'keperluan',
+        'status',
     ];
     protected $table = 'ajuan';
 }

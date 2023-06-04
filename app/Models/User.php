@@ -28,6 +28,7 @@ class User extends Authenticatable
         'tanggal_lahir',
         'posisi_pilihan',
         'role_id',
+        'status',
     ];
 
     /**
@@ -49,4 +50,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function role()
+    {
+        return $this->belongsTo('App\Models\Role');
+    }
 }

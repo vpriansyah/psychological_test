@@ -9,6 +9,7 @@ class Poin extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'nomor',
         'soal',
         'kategori_id',
         'jawaban_A',
@@ -23,4 +24,8 @@ class Poin extends Model
         'poin_E',
     ];
     protected $table = 'paket_soal';
+    public function kategori()
+    {
+        return $this->belongsTo('App\Models\Kategori');
+    }
 }

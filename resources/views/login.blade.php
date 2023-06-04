@@ -62,12 +62,6 @@
   </head>
 
   <body>
-    @if (session()->has('loginError'))
-<div class="alert alert-danger alert-dismissible fade show mx-auto" role="alert">
-                    {{ session('loginError') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-@endif
     <!-- Content -->
 
     <div class="container-xxl">
@@ -100,8 +94,8 @@
                   />
                   @error('username')
     <div class="invalid-feedback">
-                                                      {{ $message }}
-                                                  </div>
+                                                                      {{ $message }}
+                                                                  </div>
 @enderror
                 </div>
                 <div class="mb-3 form-password-toggle">
@@ -123,6 +117,18 @@
                 <div class="mb-3">
                 </div>
                 <div class="mb-3">
+                    @if (session()->has('loginError'))
+<div class="alert alert-danger alert-dismissible fade show mx-auto" role="alert">
+                                        {{ session('loginError') }}
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>
+@endif
+                        @if (session()->has('loginVerifikasi'))
+<div class="alert alert-danger alert-dismissible fade show mx-auto" role="alert">
+                                        {{ session('loginVerifikasi') }}
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>
+@endif
                   <button class="btn btn-primary d-grid w-100" type="submit">Sign in</button>
                 </div>
               </form>

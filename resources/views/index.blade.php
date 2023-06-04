@@ -25,6 +25,9 @@
     {{-- main CSS --}}
     <link href="assets/css/main.css" rel="stylesheet">
 
+    {{-- SweetAlert --}}
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 </head>
 
 <body>
@@ -519,7 +522,8 @@
                                     <div class="error-message"></div>
                                     <div class="sent-message">Your message has been sent. Thank you!</div>
                                 </div>
-                                <div class="text-center"><button type="submit">Send Message</button></div>
+                                <div class="text-center"><button type="submit" onclick="contoh()">Send
+                                        Message</button></div>
                             </form>
                         </div><!-- End Contact Form -->
 
@@ -589,6 +593,30 @@
     <script src="assets/login/vendor/countdowntime/countdowntime.js"></script>
     <!--===============================================================================================-->
     <script src="assets/login/js/main.js"></script>
+
+    {{-- SweetAlert --}}
+    <script type="text/javascript">
+        function contoh() {
+
+            swal({
+
+                title: "Berhasil!",
+
+                text: "Aduan berhasil terkirim",
+
+                icon: "success",
+
+                button: true
+
+            });
+
+        }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
+    </script>
+    {{-- SweetAlert --}}
 
 </body>
 

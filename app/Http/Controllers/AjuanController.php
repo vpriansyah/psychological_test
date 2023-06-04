@@ -32,10 +32,11 @@ class AjuanController extends Controller
             'nama' => ['required', 'min:3', 'max:255'],
             'email' => 'required|min:1|max:255|email:dns|unique:ajuan',
             'keperluan' => 'required|min:5|max:255',
+            'status' => 'required',
         ]);
 
         Ajuan::create($validatedData);
-        return view('ajuan');
+        return back()->with('success', 'Akun telah berhasil diajukan');
     }
 
     /**
