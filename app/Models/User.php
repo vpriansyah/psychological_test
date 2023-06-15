@@ -17,6 +17,8 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+
+    protected $table = 'users';
     protected $fillable = [
         'username',
         'email',
@@ -29,6 +31,7 @@ class User extends Authenticatable
         'posisi_pilihan',
         'role_id',
         'status',
+        'images',
     ];
 
     /**
@@ -51,8 +54,8 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function role()
+    public function user()
     {
-        return $this->belongsTo('App\Models\Role');
+        return $this->hasMany(Hasil_tes::class, 'peserta_id');
     }
 }

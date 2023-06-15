@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class AccountController extends Controller
 {
@@ -12,16 +14,52 @@ class AccountController extends Controller
      */
     public function index()
     {
-        $data = User::all();
+
+        // if (request('search')) {
+        //     $data = DB::table('users')->where('username', 'like', '%' . request('search') . '%')
+        //         ->orWhere('email', 'like', '%' . request('search') . '%')
+        //         ->join('role', 'users.role_id', '=', 'role.id_role')->paginate(5);
+        // } else
+
+        $data = DB::table('users')->where('username', 'like', '%' . request('search') . '%')
+            ->orWhere('email', 'like', '%' . request('search') . '%')
+            ->orWhere('role', 'like', '%' . request('search') . '%')
+            ->join('role', 'users.role_id', '=', 'role.id_role')->paginate(5);
+
         return view('admin.account', compact('data'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function sendEmail($receiver, $subject, $body, $body2)
     {
-        //
+        if ($this->isOnline()) {
+            $email = [
+                'recepient' => $receiver,
+                'fromEmail' => 'psychologicaltest@monstergroup.com',
+                'fromName' => 'Monster Group',
+                'subject' => $subject,
+                'body' => $body,
+                'body2' => $body2,
+            ];
+
+            Mail::send('template_email', $email, function ($message) use ($email) {
+                $message->from($email['fromEmail'], $email['fromName']);
+                $message->to($email['recepient']);
+                $message->subject($email['subject']);
+            });
+        }
+    }
+
+
+    public function isOnline($site = "https://www.youtube.com/")
+    {
+        if (@fopen($site, "r")) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -29,6 +67,8 @@ class AccountController extends Controller
      */
     public function store(Request $request)
     {
+
+
 
         $validatedData = $request->validate([
             'username' => ['required', 'min:3', 'max:255'],
@@ -38,8 +78,15 @@ class AccountController extends Controller
             'status' => 'required',
         ]);
 
+        $receiver = $validatedData['email'];
+        $subject = 'Account Information';
+        $body = $validatedData['username'];
+        $body2 = $validatedData['password'];
+
         User::create($validatedData);
-        return redirect('/account')->with('success', 'Data telah berhasil ditambahkan');
+
+        $this->sendEmail($receiver, $subject, $body, $body2);
+        return redirect('/account')->with('success', 'Data telah berhasil ditambahkan dan email telah terkirim');
     }
 
     /**

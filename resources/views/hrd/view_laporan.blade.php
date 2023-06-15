@@ -27,45 +27,154 @@
 
         <!-- Basic Bootstrap Table -->
         <div class="card">
-            <h5 class="card-header">View Table Laporan</h5>
+            <h5 class="card-header mb-3">View Table Laporan</h5>
             <div class="table-responsive text-nowrap">
+                <a style="width: 120px" type="button" href="/print_laporan_hrd" target="_blank"
+                    class="btn btn-sm rounded-pill btn-icon btn-outline-primary col-md-4 ms-3 mb-2" data-bs-toggle="tooltip"
+                    data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true"
+                    title="<i class='bx bx-printer bx-xs' ></i> <span>Print</span>">
+                    <span class="tf-icons bx bx-printer" data-bs-toggle="modal"></span>
+                </a>
                 <table class="table">
                     <thead>
                         <tr>
                             <th>Nama Lengkap</th>
-                            <th>..</th>
-                            <th>..</th>
-                            <th>..</th>
-                            <th>..</th>
+                            <th>Posisi Pilihan</th>
+                            <th>Hasil Poin</th>
+                            <th>Status</th>
+                            <th>Tanggal Pengerjaan</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
-                        <tr>
-                            <td>
-                                <i class="fab fa-bootstrap fa-lg text-primary me-3"></i>
-                                <strong>..</strong>
-                            </td>
-                            <td>
-                                ..
-                            </td>
-                            <td>
-                                ..
-                            </td>
-                            <td>
-                                ...
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-sm rounded-pill btn-icon btn-outline-primary"
-                                    data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top"
-                                    data-bs-html="true" title="<i class='bx bx-book-open bx-xs' ></i> <span>view</span>">
-                                    <span class="tf-icons bx bx-book-open"></span>
-                                </button>
-                            </td>
-                        </tr>
+                        @foreach ($data as $hasil)
+                            <tr>
+                                <td>
+                                    <i class="fab fa-bootstrap fa-lg text-primary me-3"></i>
+                                    <strong>{{ $hasil->user->nama_lengkap }}</strong>
+                                </td>
+                                <td>
+                                    {{ $hasil->user->posisi_pilihan }}
+                                </td>
+                                <td>
+                                    {{ $hasil->jumlah_poin }}
+                                </td>
+                                <td>
+                                    @if (($hasil->jumlah_poin > 156) | ($hasil->jumlah_poin == 156))
+                                        <span class="badge rounded-pill bg-label-success">
+                                            Lolos Ambang Batas
+                                        </span>
+                                    @endif
+
+                                    @if ($hasil->jumlah_poin < 156)
+                                        <span class="badge rounded-pill bg-label-danger">
+                                            Tidak lolos Ambang Batas
+                                        </span>
+                                    @endif
+
+                                </td>
+                                <td>
+
+                                    @php
+                                        echo $hasil->created_at->format('l, d F Y H:i:s');
+                                    @endphp
+
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-sm rounded-pill btn-icon btn-outline-primary"
+                                        data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top"
+                                        data-bs-html="true"
+                                        title="<i class='bx bx-book-open bx-xs' ></i> <span>view</span>">
+                                        <span class="tf-icons bx bx-book-open" data-bs-toggle="modal"
+                                            data-bs-target="#view{{ $hasil->id }}"></span>
+                                    </button>
+                                </td>
+                            </tr>
 
 
                     </tbody>
+
+
+                    {{-- MODAL VIEW --}}
+
+                    <div class="modal fade" id="view{{ $hasil->id }}" tabindex="-1" aria-labelledby="createAccount"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="createAccount">View Laporan User</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <!-- Register Card -->
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <form id="formAuthentication" class="mb-3" action="" method="">
+
+                                                <div class="mb-3">
+                                                    <label for="nama_lengkap" class="form-label">Nama lengkap</label>
+                                                    <input type="text" id="nama_lengkap" name="nama_lengkap"
+                                                        class="form-control" placeholder="Enter your nama_lengkap" autofocus
+                                                        required value="{{ $hasil->nama_lengkap }}" disabled />
+
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="posisi_pilihan" class="form-label">Posisi Pilihan</label>
+                                                    <input type="tsxt" id="posisi_pilihan" name="posisi_pilihan"
+                                                        class="form-control" placeholder="Enter your posisi_pilihan"
+                                                        required value="{{ $hasil->posisi_pilihan }}" disabled />
+
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label class="form-label" for="keperluan">Keterangan</label>
+                                                    <div class="input-group input-group-merge">
+                                                        <textarea type="text" id="keperluan" name="keperluan" class="form-control" aria-describedby="keperluan" required
+                                                            value="" disabled>{{ $hasil->keterangan }}</textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="mb-4">
+                                                    <label class="form-label" for="password">Status</label>
+                                                    <br>
+                                                    @if ($hasil->jumlah_poin > 127)
+                                                        <span class="badge rounded-pill bg-label-success">
+                                                            Lolos Ambang Batas
+                                                        </span>
+                                                    @endif
+
+                                                    @if ($hasil->jumlah_poin < 127)
+                                                        <span class="badge rounded-pill bg-label-danger">
+                                                            Tidak lolos Ambang Batas
+                                                        </span>
+                                                    @endif
+                                                </div>
+                                                <div class="mb-3">
+                                                    Email : &emsp;{{ $hasil->email }}
+
+                                                </div>
+
+
+                                        </div>
+                                    </div>
+                                    </form>
+
+
+                                    <!-- View Card -->
+                                </div>
+                                <br>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    @endforeach
                 </table>
+                <div class="col-md-4 ms-3 mb-3 mt-5">
+                    {{ $data->links() }}
+                </div>
             </div>
         </div>
 

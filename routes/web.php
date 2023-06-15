@@ -11,8 +11,10 @@ use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\Paket_soalController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProfileEditController;
 use App\Http\Controllers\RulesController;
 use App\Http\Controllers\View_laporanController;
+use App\Http\Controllers\ViewUserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -40,6 +42,9 @@ Route::get('/', function () {
     return view('index');
 });
 
+
+
+
 Route::get('/direct', [DashboardController::class, 'index']);
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/login', [LoginController::class, 'Auth']);
@@ -57,11 +62,23 @@ Route::post('/contact', [ContactusController::class, 'store']);
 
 // <!-- User Route -->
 Route::middleware(['auth', 'UserMid'])->group(function () {
-    Route::get('/user', function () {
-        return view('user/dashboard_user');
+
+    Route::get('/user', [ViewUserController::class, 'index']);
+
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+    Route::get('/profileEdit', [ProfileEditController::class, 'index']);
+    Route::put('/profileEdit/{id}', [ProfileEditController::class, 'update']);
+
+    Route::middleware(['CekProfileUser'])->group(function () {
+        Route::get('/exam', [ExamController::class, 'index'])->name('exam');
+        Route::get('/quiz-add', [ExamController::class, 'addHasilTest']);
+
+        Route::middleware(['CekQuiz'])->group(function () {
+            Route::get('/quiz', [ExamController::class, 'indexquiz']);
+            Route::post('/submitquiz', [ExamController::class, 'submit']);
+        });
+        Route::get('/result', [ExamController::class, 'result']);
     });
-    Route::get('/profile', [ProfileController::class, 'index']);
-    Route::get('/exam', [ExamController::class, 'index']);
 });
 
 // <!-- / User Route -->
@@ -89,7 +106,11 @@ Route::middleware(['auth', 'AdminMid'])->group(function () {
     Route::post('/paket_soal', [Paket_soalController::class, 'store']);
     Route::delete('/paket_soal/{id}', [Paket_soalController::class, 'destroy']);
     Route::put('/paket_soal/edit/{id}', [Paket_soalController::class, 'update']);
+
+
     Route::get('/laporan', [LaporanController::class, 'index']);
+    Route::delete('/laporan/{id}', [LaporanController::class, 'destroy']);
+    Route::put('/laporan/edit/{id}', [LaporanController::class, 'update']);
 });
 
 // <!-- /  Admin Route -->
@@ -114,5 +135,6 @@ Route::middleware(['auth', 'HrdMid'])->group(function () {
     Route::delete('/alur/{id}', [AlurController::class, 'destroy']);
 
     Route::get('/view_laporan', [View_laporanController::class, 'index']);
+    Route::get('/print_laporan_hrd', [View_laporanController::class, 'print']);
 });
 // <!-- HRD Route -->

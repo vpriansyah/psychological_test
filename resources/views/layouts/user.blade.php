@@ -38,12 +38,14 @@
     <!-- Helpers -->
     <script src="assets/admin&login/vendor/js/helpers.js"></script>
 
+
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="assets/admin&login/js/config.js"></script>
 </head>
 
 <body>
+    @php $time = explode(':','00:44:59',); @endphp
     <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar">
         <div class="layout-container">
@@ -138,29 +140,8 @@
             <div class="layout-page">
                 @yield('user')
                 <br>
-                <footer class="content-footer footer bg-footer-theme">
-                    <div class="footer-legal text-center">
-                        <div
-                            class="container d-flex flex-column flex-lg-row justify-content-center justify-content-lg-between align-items-center">
-
-                            <div class="d-flex flex-column align-items-center align-items-lg-start">
-                                <div class="copyright">
-                                    &copy; Copyright <strong><span>Devanza Prianyah Putra</span></strong>. Project Tugas
-                                    Akhir
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="social-links order-first order-lg-last mb-3 mb-lg-0">
-                            <a href="https://www.instagram.com/monstergroup.co.id/" class="instagram"><i
-                                    class="bi bi-instagram"></i></a>
-                            <a href="https://id.linkedin.com/company/monstergroup" class="linkedin"><i
-                                    class="bi bi-linkedin"></i></a>
-                        </div>
-
-                    </div>
             </div>
-            </footer>
+
         </div>
         <!-- / Layout page -->
     </div>
@@ -197,6 +178,54 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+
+
+    <script>
+        $(document).ready(function() {
+            var time = @json($time);
+            $('.time').text(time[0] + ':' + time[1] + ':00');
+            var seconds = 59;
+            var hours = parseInt(time[0]);
+            var minutes = parseInt(time[1]);
+
+            var timer = setInterval(() => {
+
+                if (hours == 0 && minutes == 0 && seconds == 1) {
+                    clearInterval(timer);
+                    $('#exam_form').submit();
+                }
+
+
+                if (seconds <= 0) {
+
+                    minutes--;
+                    seconds = 59;
+
+                }
+                if (minutes <= 0 && hours != 0) {
+
+                    hours--;
+                    minutes = 59;
+                    seconds = 59;
+
+                }
+
+                let tempHours = hours.toString().length > 1 ? hours : '0' + hours;
+                let tempMinutes = minutes.toString().length > 1 ? minutes : '0' + minutes;
+                let tempSeconds = seconds.toString().length > 1 ? seconds : '0' + seconds;
+
+                $('.time').text(tempHours + ':' + tempMinutes + ':' + tempSeconds);
+
+                seconds--;
+
+            }, 1000);
+
+        });
+    </script>
+
+
 </body>
+
 
 </html>

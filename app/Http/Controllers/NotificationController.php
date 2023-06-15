@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Ajuan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class NotificationController extends Controller
 {
@@ -12,7 +13,10 @@ class NotificationController extends Controller
      */
     public function index()
     {
-        $data = Ajuan::all();
+        $data = DB::table('ajuan')
+            ->where('nama', 'like', '%' . request('search') . '%')
+            ->orwhere('email', 'like', '%' . request('search') . '%')
+            ->orderByDesc('id')->paginate(5);
         return view('admin.notification', compact('data'));
     }
 

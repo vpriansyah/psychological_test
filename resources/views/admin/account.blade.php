@@ -64,7 +64,7 @@
                                                     {{ $message }}
                                                 </div>
                                             @enderror
-                                            <option selected>Role User</option>
+                                            <option value="" selected>Role User</option>
                                             <option value="1">User</option>
                                             <option value="2">HRD</option>
                                             <option value="3">admin</option>
@@ -89,7 +89,33 @@
             </div>
         </div>
 
+        <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
+            id="layout-navbar">
+            <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
+                <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
+                    <i class="bx bx-menu bx-sm"></i>
+                </a>
+            </div>
 
+            <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
+                <!-- Search -->
+                <div class="navbar-nav align-items-center">
+                    <div class="nav-item d-flex align-items-center">
+                        <span class="bx bx-search fs-4 lh-0"></span>
+                        <form action="/account" method="GET">
+                            <input type="search" class="form-control border-0 shadow-none" name="search"
+                                placeholder="Search..." aria-label="Search..." />
+
+
+                    </div>
+                    <button class="btn btn-primary ms-5" type="submit">search</button>
+                    </form>
+
+                </div>
+                <!-- /Search -->
+                </ul>
+            </div>
+        </nav>
 
         <!-- Content -->
 
@@ -150,7 +176,7 @@
                                         {{ $account->password }}
                                     </td>
                                     <td>
-                                        {{ $account->role->role }}
+                                        {{ $account->role }}
                                     </td>
                                     <td>
                                         <div class="form-check form-switch mb-2">
@@ -388,6 +414,9 @@
                         @endforeach
                         </tbody>
                     </table>
+                    <div class="col-md-4 ms-3 mb-3 mt-5">
+                        {{ $data->links() }}
+                    </div>
                 </div>
             </div>
             <!--/ Basic Bootstrap Table -->

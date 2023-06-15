@@ -12,10 +12,15 @@
             <!-- Search -->
             <div class="navbar-nav align-items-center">
                 <div class="nav-item d-flex align-items-center">
-                    <i class="bx bx-search fs-4 lh-0"></i>
-                    <input type="text" class="form-control border-0 shadow-none" placeholder="Search..."
-                        aria-label="Search..." />
+                    <span class="bx bx-search fs-4 lh-0"></span>
+                    <form action="/paket_soal" method="GET">
+                        <input type="search" class="form-control border-0 shadow-none" name="search"
+                            placeholder="Search..." aria-label="Search..." />
+
+
                 </div>
+                <button class="btn btn-primary ms-5" type="submit">search</button>
+                </form>
             </div>
             <!-- /Search -->
             </ul>
@@ -65,20 +70,9 @@
                                                     {{ $message }}
                                                 </div>
                                             @enderror
-                                            <option selected>Kategori Soal</option>
+                                            <option value="" selected>Kategori Soal</option>
                                             <option value="1">TKP</option>
                                         </select>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="nomor" class="form-label">Nomor Soal</label>
-                                        <input type="number" id="nomor" name="nomor"
-                                            class="form-control @error('nomor') is-invalid @enderror"
-                                            placeholder="Enter your Soal" autofocus required />
-                                        @error('nomor')
-                                            <div class="invalid-feedback">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
                                     </div>
                                     <div class="mb-3">
                                         <label for="soal" class="form-label">Soal</label>
@@ -300,10 +294,10 @@
                 </div>
             </div>
             <div class="table-responsive text-nowrap">
-                <table class="table">
+                <table class="table mb-4 mt-3">
                     <thead>
                         <tr>
-                            <th>Nomor</th>
+                            <th>Actions</th>
                             <th>Soal</th>
                             <th>Kategori</th>
                             <th>Jawaban A</th>
@@ -316,21 +310,40 @@
                             <th>Poin C</th>
                             <th>Poin D</th>
                             <th>Poin E</th>
-                            <th>Actions</th>
+
                         </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
                         @foreach ($data as $poin)
                             <tr>
                                 <td>
-                                    {{ $poin->nomor }}
+                                    <button type="button" class="btn btn-sm rounded-pill btn-icon btn-outline-primary"
+                                        data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top"
+                                        data-bs-html="true"
+                                        title="<i class='bx bx-book-open bx-xs' ></i> <span>view</span>">
+                                        <span class="tf-icons bx bx-book-open" data-bs-toggle="modal"
+                                            data-bs-target="#view{{ $poin->id }}"></span>
+                                    </button>
+                                    <button type="button" class="btn btn-sm rounded-pill btn-icon btn-outline-success"
+                                        data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top"
+                                        data-bs-html="true" title="<i class='bx bx-edit bx-xs' ></i> <span>edit</span>">
+                                        <span class="tf-icons bx bx-edit" data-bs-toggle="modal"
+                                            data-bs-target="#edit{{ $poin->id }}"></span>
+                                    </button>
+                                    <button type="button" class="btn btn-sm rounded-pill btn-icon btn-outline-danger"
+                                        data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top"
+                                        data-bs-html="true"
+                                        title="<i class='bx bx-trash bx-xs' ></i> <span>delete</span>">
+                                        <span class="tf-icons bx bx-trash" data-bs-toggle="modal"
+                                            data-bs-target="#ModalDelete{{ $poin->id }}"></span>
+                                    </button>
                                 </td>
                                 <td>
                                     <i class="fab fa-bootstrap fa-lg text-primary me-3"></i>
                                     <strong> {{ $poin->soal }}</strong>
                                 </td>
                                 <td>
-                                    {{ $poin->kategori->kategori }}
+                                    {{ $poin->kategori }}
                                 </td>
                                 <td>
                                     {{ $poin->jawaban_A }}
@@ -362,28 +375,7 @@
                                 <td>
                                     {{ $poin->poin_E }}
                                 </td>
-                                <td>
-                                    <button type="button" class="btn btn-sm rounded-pill btn-icon btn-outline-primary"
-                                        data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top"
-                                        data-bs-html="true"
-                                        title="<i class='bx bx-book-open bx-xs' ></i> <span>view</span>">
-                                        <span class="tf-icons bx bx-book-open" data-bs-toggle="modal"
-                                            data-bs-target="#view{{ $poin->id }}"></span>
-                                    </button>
-                                    <button type="button" class="btn btn-sm rounded-pill btn-icon btn-outline-success"
-                                        data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top"
-                                        data-bs-html="true" title="<i class='bx bx-edit bx-xs' ></i> <span>edit</span>">
-                                        <span class="tf-icons bx bx-edit" data-bs-toggle="modal"
-                                            data-bs-target="#edit{{ $poin->id }}"></span>
-                                    </button>
-                                    <button type="button" class="btn btn-sm rounded-pill btn-icon btn-outline-danger"
-                                        data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top"
-                                        data-bs-html="true"
-                                        title="<i class='bx bx-trash bx-xs' ></i> <span>delete</span>">
-                                        <span class="tf-icons bx bx-trash" data-bs-toggle="modal"
-                                            data-bs-target="#ModalDelete{{ $poin->id }}"></span>
-                                    </button>
-                                </td>
+
                             </tr>
 
 
@@ -407,15 +399,9 @@
                                                             <label for="soal" class="form-label">Kategori</label>
                                                             <input type="text" id="soal" name="soal"
                                                                 class="form-control" autofocus required
-                                                                value="{{ $poin->kategori->kategori }}" disabled />
+                                                                value="{{ $poin->kategori }}" disabled />
                                                         </div>
-                                                        <div class="mb-3">
-                                                            <label for="nomor" class="form-label">Nomor Soal</label>
-                                                            <input type="number" id="nomor" name="nomor"
-                                                                class="form-control" placeholder="Enter your Soal"
-                                                                autofocus required value="{{ $poin->nomor }}" disabled />
 
-                                                        </div>
                                                         <div class="mb-3">
                                                             <label for="soal" class="form-label">Soal</label>
                                                             <input type="text" id="soal" name="soal"
@@ -514,18 +500,6 @@
                                                                 <option>Kategori Soal</option>
                                                                 <option value="1" selected>TKP</option>
                                                             </select>
-                                                        </div>
-                                                        <div class="mb-3">
-                                                            <label for="nomor" class="form-label">Nomor Soal</label>
-                                                            <input type="number" id="nomor" name="nomor"
-                                                                class="form-control @error('nomor') is-invalid @enderror"
-                                                                placeholder="Enter your Soal" autofocus required
-                                                                value="{{ $poin->nomor }}" />
-                                                            @error('nomor')
-                                                                <div class="invalid-feedback">
-                                                                    {{ $message }}
-                                                                </div>
-                                                            @enderror
                                                         </div>
                                                         <div class="mb-3">
                                                             <label for="soal" class="form-label">Soal</label>
@@ -825,7 +799,11 @@
                         @endforeach
 
                     </tbody>
+
                 </table>
+                <div class="col-md-4 ms-3 mb-3 mt-5">
+                    {{ $data->links() }}
+                </div>
             </div>
         </div>
 

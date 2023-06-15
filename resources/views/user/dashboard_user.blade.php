@@ -28,23 +28,35 @@
                     <li class="nav-item navbar-dropdown dropdown-user dropdown">
                         <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                             <div class="avatar avatar-online">
-                                <img src="assets/admin&login/img/avatars/default.png" alt
-                                    class="w-px-40 h-auto rounded-circle" />
+                                @if (auth()->user()->images == null)
+                                    <img src="assets/admin&login/img/avatars/default.png" alt class="rounded-circle"
+                                        height="60px" width="60px" />
+                                @else
+                                    <img src="{{ asset(auth()->user()->images) }}" alt class="rounded-circle" height="60px"
+                                        width="60px" />
+                                @endif
                             </div>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">
                             <li>
+
                                 <a class="dropdown-item" href="#">
                                     <div class="d-flex">
                                         <div class="flex-shrink-0 me-3">
                                             <div class="avatar avatar-online">
-                                                <img src="assets/admin&login/img/avatars/default.png" alt
-                                                    class="w-px-40 h-auto rounded-circle" />
+                                                @if (auth()->user()->images == null)
+                                                    <img src="assets/admin&login/img/avatars/default.png" alt
+                                                        class="rounded-circle" height="40px" width="40px" />
+                                                @else
+                                                    <img src="{{ asset(auth()->user()->images) }}" alt
+                                                        class="rounded-circle" height="40px" width="40px" />
+                                                @endif
+
                                             </div>
                                         </div>
                                         <div class="flex-grow-1">
                                             <span class="fw-semibold d-block">{{ auth()->user()->username }}</span>
-                                            <small class="text-muted">Admin</small>
+                                            <small class="text-muted">User</small>
                                         </div>
                                     </div>
                                 </a>
@@ -103,6 +115,29 @@
 
 
                         </div>
+                    </div>
+                </div>
+                <div class="col-lg-13 mb-4 order-0">
+                    <div class="card">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Alur Pengerjaan Psikotes Monster Group
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($data as $alur)
+                                    <tr>
+                                        <td><i class="fab fa-angular fa-lg text-danger me-3">{{ $alur->urutan }}.</i>
+                                            <strong>{{ $alur->alur_pengerjaan }} </strong>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+
                     </div>
                 </div>
                 <div class="content-backdrop fade"></div>

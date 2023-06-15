@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Poin;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class Paket_soalController extends Controller
 {
@@ -12,7 +13,14 @@ class Paket_soalController extends Controller
      */
     public function index()
     {
-        $data = Poin::orderBy('nomor')->get();
+        $data = DB::table('paket_soal')
+            ->where('soal', 'like', '%' . request('search') . '%')
+            ->orwhere('jawaban_A', 'like', '%' . request('search') . '%')
+            ->orwhere('jawaban_B', 'like', '%' . request('search') . '%')
+            ->orwhere('jawaban_C', 'like', '%' . request('search') . '%')
+            ->orwhere('jawaban_D', 'like', '%' . request('search') . '%')
+            ->orwhere('jawaban_E', 'like', '%' . request('search') . '%')
+            ->join('kategori_tes', 'paket_soal.kategori_id', '=', 'kategori_tes.id_kategori')->paginate(5);
         return view('admin.paket_soal', compact('data'));
     }
 
@@ -30,7 +38,6 @@ class Paket_soalController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'nomor' => ['required', 'unique:paket_soal'],
             'soal' => ['required', 'min:3', 'max:255', 'unique:paket_soal'],
             'kategori_id' => ['required'],
             'jawaban_A' => ['required'],
@@ -86,8 +93,6 @@ class Paket_soalController extends Controller
 
         if ($request->soal != $id->soal) {
             $rules['soal'] = 'required|min:3|max:255|unique:paket_soal';
-        } else if ($request->nomor != $id->nomor) {
-            $rules['nomor'] = 'required|unique:paket_soal';
         }
 
         $validatedData = $request->validate($rules);

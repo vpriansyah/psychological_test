@@ -12,10 +12,15 @@
             <!-- Search -->
             <div class="navbar-nav align-items-center">
                 <div class="nav-item d-flex align-items-center">
-                    <i class="bx bx-search fs-4 lh-0"></i>
-                    <input type="text" class="form-control border-0 shadow-none" placeholder="Search..."
-                        aria-label="Search..." />
+                    <span class="bx bx-search fs-4 lh-0"></span>
+                    <form action="/notification" method="GET">
+                        <input type="search" class="form-control border-0 shadow-none" name="search"
+                            placeholder="Search..." aria-label="Search..." />
+
+
                 </div>
+                <button class="btn btn-primary ms-5" type="submit">search</button>
+                </form>
             </div>
             <!-- /Search -->
             </ul>
@@ -170,6 +175,9 @@
 
                     </tbody>
                 </table>
+                <div class="col-md-4 ms-3 mb-3 mt-5">
+                    {{ $data->links() }}
+                </div>
             </div>
         </div>
 

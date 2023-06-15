@@ -9,7 +9,6 @@ class Poin extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'nomor',
         'soal',
         'kategori_id',
         'jawaban_A',

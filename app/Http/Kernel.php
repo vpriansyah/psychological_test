@@ -66,5 +66,7 @@ class Kernel extends HttpKernel
         'UserMid' => \App\Http\Middleware\UserMid::class,
         'HrdMid' => \App\Http\Middleware\HrdMid::class,
         'AdminMid' => \App\Http\Middleware\AdminMid::class,
+        'CekProfileUser' => \App\Http\Middleware\CekProfileUser::class,
+        'CekQuiz' => \App\Http\Middleware\CekQuiz::class,
     ];
 }
