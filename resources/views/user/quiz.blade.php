@@ -2,7 +2,7 @@
 @section('user')
     <div class="container-xxl flex-grow-1 container-p-y">
         <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Task /</span> Quiz</h4>
-        <h3 class="offset-md-10 time"></h3>
+        <div id="total-time-left" align="center"> </div>
         @php $no = 1; @endphp
         <form id="exam_form" class="mb-3" action="/submitquiz" method="POST">
             @csrf

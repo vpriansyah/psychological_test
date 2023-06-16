@@ -182,46 +182,36 @@
 
 
     <script>
-        $(document).ready(function() {
-            var time = @json($time);
-            $('.time').text(time[0] + ':' + time[1] + ':00');
-            var seconds = 59;
-            var hours = parseInt(time[0]);
-            var minutes = parseInt(time[1]);
+        if (localStorage.getItem("count_timer")) {
+            var count_timer = localStorage.getItem("count_timer");
+        } else {
+            var count_timer = 2700;
+        }
+        var minutes = parseInt(count_timer / 60);
+        var seconds = parseInt(count_timer % 60);
 
-            var timer = setInterval(() => {
+        function countDownTimer() {
+            if (seconds < 10) {
+                seconds = "0" + seconds;
+            }
+            if (minutes < 10) {
+                minutes = "0" + minutes;
+            }
 
-                if (hours == 0 && minutes == 0 && seconds == 1) {
-                    clearInterval(timer);
-                    $('#exam_form').submit();
-                }
-
-
-                if (seconds <= 0) {
-
-                    minutes--;
-                    seconds = 59;
-
-                }
-                if (minutes <= 0 && hours != 0) {
-
-                    hours--;
-                    minutes = 59;
-                    seconds = 59;
-
-                }
-
-                let tempHours = hours.toString().length > 1 ? hours : '0' + hours;
-                let tempMinutes = minutes.toString().length > 1 ? minutes : '0' + minutes;
-                let tempSeconds = seconds.toString().length > 1 ? seconds : '0' + seconds;
-
-                $('.time').text(tempHours + ':' + tempMinutes + ':' + tempSeconds);
-
-                seconds--;
-
-            }, 1000);
-
-        });
+            document.getElementById("total-time-left").innerHTML = "Time Left : " + minutes + " Minutes " + seconds +
+                " Seconds";
+            if (count_timer <= 0) {
+                localStorage.clear("count_timer");
+                $('#exam_form').submit();
+            } else {
+                count_timer = count_timer - 1;
+                minutes = parseInt(count_timer / 60);
+                seconds = parseInt(count_timer % 60);
+                localStorage.setItem("count_timer", count_timer);
+                setTimeout("countDownTimer()", 1000);
+            }
+        }
+        setTimeout("countDownTimer()", 1000);
     </script>
 
 

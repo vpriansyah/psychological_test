@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class ExamController extends Controller
 {
@@ -33,11 +34,21 @@ class ExamController extends Controller
         return redirect('/quiz');
     }
 
-    public function indexquiz()
+    public function indexquiz(Request $request)
     {
+
         $tkp = DB::table('paket_soal')->where('kategori_id', '1')->get();
 
-        return view('user.quiz', compact('tkp'));
+        // Mendapatkan nilai terakhir dari session
+        $selectedOption = Session::get('paket_soal');
+
+        // Jika ada input baru dari form, update nilai session dengan nilai yang baru
+        if ($request->has('paket_soal')) {
+            $selectedOption = $request->input('paket_soal');
+            Session::put('paket_soal', $selectedOption);
+        }
+
+        return view('user.quiz', compact('tkp', 'selectedOption'));
     }
 
     /**
