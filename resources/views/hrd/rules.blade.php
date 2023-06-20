@@ -39,7 +39,7 @@
                                         <label for="rules_pengerjaan" class="form-label">Rules</label>
                                         <input type="text" id="rules_pengerjaan" name="rules_pengerjaan"
                                             class="form-control @error('rules_pengerjaan') is-invalid @enderror"
-                                            placeholder="Enter your alur" autofocus required />
+                                            placeholder="Enter your rules" autofocus required />
                                         @error('rules_pengerjaan')
                                             <div class="invalid-feedback">
                                                 {{ $message }}

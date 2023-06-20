@@ -89,9 +89,7 @@ Route::middleware(['auth', 'UserMid'])->group(function () {
 
 // <!-- Admin Route -->
 Route::middleware(['auth', 'AdminMid'])->group(function () {
-    Route::get('/admin', function () {
-        return view('admin/dashboard_admin');
-    });
+    Route::get('/admin', [AccountController::class, 'index_dashboard']);
     Route::get('/account', [AccountController::class, 'index']);
     Route::post('/account', [AccountController::class, 'store']);
     Route::get('/changeStatus', [AccountController::class, 'changeUserStatus']);
@@ -106,6 +104,10 @@ Route::middleware(['auth', 'AdminMid'])->group(function () {
     Route::post('/paket_soal', [Paket_soalController::class, 'store']);
     Route::delete('/paket_soal/{id}', [Paket_soalController::class, 'destroy']);
     Route::put('/paket_soal/edit/{id}', [Paket_soalController::class, 'update']);
+
+    Route::post('/kategori', [Paket_soalController::class, 'store_kategori']);
+    Route::delete('/kategori/{id}', [Paket_soalController::class, 'destroy_kategori']);
+    Route::put('/kategori/edit/{id}', [Paket_soalController::class, 'update_kategori']);
 
 
     Route::get('/laporan', [LaporanController::class, 'index']);

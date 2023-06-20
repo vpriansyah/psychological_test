@@ -9,4 +9,12 @@ class Kategori extends Model
 {
     use HasFactory;
     protected $table = 'kategori_tes';
+    protected $fillable = [
+        'kategori',
+    ];
+
+    public function kategori()
+    {
+        return $this->hasMany(Poin::class, 'kategori_id');
+    }
 }

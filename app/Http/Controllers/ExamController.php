@@ -36,6 +36,7 @@ class ExamController extends Controller
 
     public function indexquiz(Request $request)
     {
+        $selectedRadio = session('flexRadioDefault{{ $soal->id }}', '');
 
         $tkp = DB::table('paket_soal')->where('kategori_id', '1')->get();
 
@@ -48,7 +49,7 @@ class ExamController extends Controller
             Session::put('paket_soal', $selectedOption);
         }
 
-        return view('user.quiz', compact('tkp', 'selectedOption'));
+        return view('user.quiz', compact('tkp', 'selectedRadio'));
     }
 
     /**
@@ -60,64 +61,25 @@ class ExamController extends Controller
         $jumlah = 0;
 
         foreach ($datas as $key => $value) {
-            // dd($key);
             if ($key != '_token') {
                 $jumlah += (int) $value;
             }
         }
 
-        // dd($jumlah);
+
         $hasil = [];
         $hasil['jumlah_poin'] = $jumlah;
         // $hasil['peserta_id'] = Auth::user()->id;'
         $hasilTest = Hasil_tes::where('peserta_id', Auth::user()->id)->first();
         $hasilTest->update($hasil);
+        $selectedRadio = $request->input('flexRadioDefault{{ $soal->id }}');
+        session(['selectedRadio' => $selectedRadio]);
+
         return redirect('/result')->with('success', 'Data telah berhasil telah tersimpan');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-    }
-
-    /**
-     * Display the specified resource.
-     */
     public function result()
     {
         return view('user.result');
-    }
-
-    // public function waktu_pengerjaan()
-    // {
-    //     $waktu = DB::table('hasil_test')->where('id', 1)->first();
-    //     $waktu->waktu_pengerjaan = Carbon::now()->addMinutes(60);
-    // }
-
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
     }
 }

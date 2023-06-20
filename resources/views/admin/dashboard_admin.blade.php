@@ -123,7 +123,7 @@
                                         </div>
                                     </div>
                                     <span class="fw-semibold d-block mb-1">Calon Karyawan</span>
-                                    <h3 class="card-title mb-2">$12,628</h3>
+                                    <h3 class="card-title mb-2">{{ $data2 }}</h3>
 
                                 </div>
                             </div>
@@ -148,7 +148,7 @@
                                         </div>
                                     </div>
                                     <span>HRD</span>
-                                    <h3 class="card-title text-nowrap mb-1">$4,679</h3>
+                                    <h3 class="card-title text-nowrap mb-1">{{ $data3 }}</h3>
 
                                 </div>
                             </div>

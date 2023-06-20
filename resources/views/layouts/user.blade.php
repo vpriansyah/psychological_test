@@ -33,10 +33,15 @@
 
     <link rel="stylesheet" href="assets/admin&login/vendor/libs/apex-charts/apex-charts.css" />
 
+
     <!-- Page CSS -->
 
     <!-- Helpers -->
     <script src="assets/admin&login/vendor/js/helpers.js"></script>
+
+    {{-- SWEET ALERT --}}
+    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.min.css'>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.all.min.js"></script>
 
 
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
@@ -200,6 +205,8 @@
 
             document.getElementById("total-time-left").innerHTML = "Time Left : " + minutes + " Minutes " + seconds +
                 " Seconds";
+
+
             if (count_timer <= 0) {
                 localStorage.clear("count_timer");
                 $('#exam_form').submit();
@@ -210,8 +217,36 @@
                 localStorage.setItem("count_timer", count_timer);
                 setTimeout("countDownTimer()", 1000);
             }
+
         }
         setTimeout("countDownTimer()", 1000);
+    </script>
+
+    <script>
+        function validateAge() {
+            var inputDate = document.getElementById('tanggal_lahir').value;
+            var today = new Date();
+            var selectedDate = new Date(inputDate);
+
+            // Menghitung umur dalam tahun
+            var age = today.getFullYear() - selectedDate.getFullYear();
+
+            // Mengatur tanggal ulang tahun yang sebelum hari ini
+            selectedDate.setFullYear(today.getFullYear());
+
+            // Memeriksa apakah tanggal ulang tahun telah terjadi atau belum
+            if (today < selectedDate) {
+                age--;
+            }
+
+            // Memeriksa apakah umur memenuhi batasan minimum (misalnya, 18 tahun)
+            if (age < 18) {
+                swal("Peringatan !", "Anda harus berusia minimal 18 tahun.");
+                return false;
+            }
+
+            return true;
+        }
     </script>
 
 

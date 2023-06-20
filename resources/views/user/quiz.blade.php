@@ -17,7 +17,8 @@
                         <h5 class="card-title mb-5">{{ $soal->soal }}</h5>
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="flexRadioDefault{{ $soal->id }}"
-                                id="flexRadioDefault1" value="{{ $soal->poin_A }}" />
+                                id="flexRadioDefault1" value="{{ $soal->poin_A }}"
+                                {{ $selectedRadio == $soal->poin_A ? 'checked' : '' }} />
                             <label class="form-check-label mb-3" for="flexRadioDefault1">
                                 {{ $soal->jawaban_A }}
                             </label>
@@ -65,6 +66,7 @@
                     data-bs-target="#submit">Finish Attemp</button>
             </div>
 
+
             {{-- MODAL SUBMIT --}}
             <div class="modal
                     fade" id="submit" tabindex="-1" aria-labelledby="ModalLabel"
@@ -82,7 +84,9 @@
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
 
-                            <button type="submit" class="btn btn-primary"> <span class="tf-icons bx"></span>Submit</button>
+                            <button type="submit" class="btn btn-primary">Submit
+                                <span class="tf-icons bx bx-flag"></span>
+                            </button>
                         </div>
                     </div>
                 </div>

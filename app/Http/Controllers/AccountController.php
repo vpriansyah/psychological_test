@@ -12,15 +12,16 @@ class AccountController extends Controller
     /**
      * Display a listing of the resource.
      */
+    public function index_dashboard()
+    {
+        $data2 = DB::table('users')->where('role_id', '=', 1)->count();
+        $data3 = DB::table('users')->where('role_id', '=', 2)->count();
+        return view('admin.dashboard_admin', compact('data2', 'data3'));
+    }
+
+
     public function index()
     {
-
-        // if (request('search')) {
-        //     $data = DB::table('users')->where('username', 'like', '%' . request('search') . '%')
-        //         ->orWhere('email', 'like', '%' . request('search') . '%')
-        //         ->join('role', 'users.role_id', '=', 'role.id_role')->paginate(5);
-        // } else
-
         $data = DB::table('users')->where('username', 'like', '%' . request('search') . '%')
             ->orWhere('email', 'like', '%' . request('search') . '%')
             ->orWhere('role', 'like', '%' . request('search') . '%')
@@ -89,25 +90,7 @@ class AccountController extends Controller
         return redirect('/account')->with('success', 'Data telah berhasil ditambahkan dan email telah terkirim');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, User $id)
     {
         $rules = [
@@ -135,9 +118,6 @@ class AccountController extends Controller
         $users->save();
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(User $id)
     {
         User::destroy($id->id);

@@ -1,32 +1,5 @@
 @Extends('layouts.admin')
 @section('admin')
-    {{-- <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
-        id="layout-navbar">
-        <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
-            <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
-                <i class="bx bx-menu bx-sm"></i>
-            </a>
-        </div>
-
-        <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
-            <!-- Search -->
-            <div class="navbar-nav align-items-center">
-                <div class="nav-item d-flex align-items-center">
-                    <span class="bx bx-search fs-4 lh-0"></span>
-                    <form action="/laporan" method="GET">
-                        <input type="search" class="form-control border-0 shadow-none" name="search"
-                            placeholder="Search..." aria-label="Search..." />
-
-
-                </div>
-                <button class="btn btn-primary ms-5" type="submit">search</button>
-                </form>
-            </div>
-            <!-- /Search -->
-            </ul>
-        </div>
-    </nav> --}}
-
     <div class="container-xxl flex-grow-1 container-p-y">
         <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Resource /</span>Laporan</h4>
         @if (session()->has('update'))
@@ -78,13 +51,6 @@
                                     @endphp
                                 </td>
                                 <td>
-                                    <button type="button" class="btn btn-sm rounded-pill btn-icon btn-outline-primary"
-                                        data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top"
-                                        data-bs-html="true"
-                                        title="<i class='bx bx-book-open bx-xs' ></i> <span>view</span>">
-                                        <span class="tf-icons bx bx-book-open" data-bs-toggle="modal"
-                                            data-bs-target="#view{{ $hasil->id }}"></span>
-                                    </button>
                                     <button type="button" class="btn btn-sm rounded-pill btn-icon btn-outline-success"
                                         data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top"
                                         data-bs-html="true" title="<i class='bx bx-edit bx-xs' ></i> <span>edit</span>">
@@ -151,7 +117,7 @@
                                                         <div class="mb-3">
                                                             <label for="keterangan" class="form-label">Keterangan</label>
                                                             <input type="text" id="keterangan" name="keterangan"
-                                                                class="form-control" placeholder="Enter your alur"
+                                                                class="form-control" placeholder="Enter your keterangan"
                                                                 autofocus required />
                                                         </div>
                                                 </div>

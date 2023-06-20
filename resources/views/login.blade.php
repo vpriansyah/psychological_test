@@ -94,8 +94,8 @@
                   />
                   @error('username')
     <div class="invalid-feedback">
-                                                                      {{ $message }}
-                                                                  </div>
+                                                                          {{ $message }}
+                                                                      </div>
 @enderror
                 </div>
                 <div class="mb-3 form-password-toggle">

@@ -13,9 +13,6 @@
                 <p class="card-text text-secondary"> ( Untuk selanjutnya, silahkan menunggu informasi e-mail
                     selanjutnya )</p>
 
-                {{-- <div class="card-footer text-muted text-primary">
-                    Untuk informasi selanjutnya, silahkan menunggu informasi e-mail selanjutnya
-                </div> --}}
             </div>
         </div>
 

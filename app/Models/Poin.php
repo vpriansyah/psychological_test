@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Poin extends Model
 {
     use HasFactory;
+    protected $table = 'paket_soal';
     protected $fillable = [
         'soal',
         'kategori_id',
@@ -22,9 +23,9 @@ class Poin extends Model
         'poin_D',
         'poin_E',
     ];
-    protected $table = 'paket_soal';
+
     public function kategori()
     {
-        return $this->belongsTo('App\Models\Kategori');
+        return $this->belongsTo(Kategori::class, 'kategori_id');
     }
 }

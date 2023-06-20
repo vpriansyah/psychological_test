@@ -12,8 +12,8 @@
                     <small class="text-muted float-end">Calon Karyawan</small>
                 </div>
                 <div class="card-body">
-                    <form id="formAuthentication" class="mb-3" action="/profileEdit/{{ auth()->user()->id }}"
-                        method="POST" enctype="multipart/form-data">
+                    <form onsubmit="return validateAge()" id="formAuthentication" class="mb-3"
+                        action="/profileEdit/{{ auth()->user()->id }}" method="POST" enctype="multipart/form-data">
                         @method('put')
                         @csrf
                         <div class="row mb-3">
@@ -53,7 +53,8 @@
                                             {{ $message }}
                                         </div>
                                     @enderror
-                                    <option value="" selected>Pilih Gender</option>
+                                    <option value="{{ auth()->user()->gender }}" selected>{{ auth()->user()->gender }}
+                                    </option>
                                     <option value="Laki - laki">Laki - laki</option>
                                     <option value="Perempuan">Perempuan</option>
 
@@ -108,11 +109,11 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="html5-date-input" class="col-md-2 col-form-label">Tanggal Lahir</label>
+                            <label for="lahir" class="col-md-2 col-form-label">Tanggal Lahir</label>
                             <div class="col-md-10">
                                 <input name="tanggal_lahir"
                                     class="form-control @error('tanggal_lahir') is-invalid @enderror" type="date"
-                                    value="{{ auth()->user()->tanggal_lahir }}" id="html5-date-input" />
+                                    value="{{ auth()->user()->tanggal_lahir }}" id="tanggal_lahir" />
                                 @error('tanggal_lahir')
                                     <div class="invalid-feedback">
                                         {{ $message }}

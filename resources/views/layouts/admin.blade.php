@@ -277,6 +277,83 @@
         });
     </script>
 
+    {{-- VALIDASI UNTUK SELECT PEMBUATAN PAKET SOAL  --}}
+
+    <script>
+        function updateOptions(select) {
+            var selectedOption = select.options[select.selectedIndex].value;
+            var selectedIndex = parseInt(select.getAttribute('data-index'));
+
+            var select2 = document.querySelector('select[data-index="2"]');
+            var options2 = select2.options;
+
+            var select3 = document.querySelector('select[data-index="3"]');
+            var options3 = select3.options;
+
+            var select4 = document.querySelector('select[data-index="4"]');
+            var options4 = select4.options;
+
+            var select5 = document.querySelector('select[data-index="5"]');
+            var options5 = select5.options;
+
+            var select1Value = document.querySelector('select[data-index="1"]').value;
+            var select2Value = document.querySelector('select[data-index="2"]').value;
+            var select3Value = document.querySelector('select[data-index="3"]').value;
+            var select4Value = document.querySelector('select[data-index="4"]').value;
+            var select5Value = document.querySelector('select[data-index="5"]').value;
+
+            for (var i = 0; i < options2.length; i++) {
+                if (options2[i].value === select1Value) {
+                    options2[i].disabled = true;
+                } else {
+                    options2[i].disabled = false;
+                }
+            }
+
+            for (var i = 0; i < options3.length; i++) {
+                if (options3[i].value === select1Value || options3[i].value === select2Value) {
+                    options3[i].disabled = true;
+                } else {
+                    options3[i].disabled = false;
+                }
+            }
+
+            for (var i = 0; i < options4.length; i++) {
+                if (options4[i].value === select1Value || options4[i].value === select2Value || options4[i].value ===
+                    select3Value) {
+                    options4[i].disabled = true;
+                } else {
+                    options4[i].disabled = false;
+                }
+            }
+
+            for (var i = 0; i < options5.length; i++) {
+                if (options4[i].value === select1Value || options4[i].value === select2Value || options4[i].value ===
+                    select3Value || options4[i].value === select4Value) {
+                    options5[i].disabled = true;
+                } else {
+                    options5[i].disabled = false;
+                }
+            }
+
+            // Jika opsi yang sudah dipilih pada select 1 dan 2 adalah opsi yang aktif pada select 3, atur select 3 menjadi nilai default
+            if (selectedOption === select1Value) {
+                select2.value = '';
+            }
+            if (selectedOption === select1Value || selectedOption === select2Value) {
+                select3.value = '';
+            }
+            if (selectedOption === select1Value || selectedOption === select2Value || selectedOption === select3Value) {
+                select4.value = '';
+            }
+            if (selectedOption === select1Value || selectedOption === select2Value || selectedOption === select3Value ||
+                selectedOption === select4Value) {
+                select5.value = '';
+            }
+        }
+    </script>
+
+
 
 </body>
 
