@@ -190,8 +190,9 @@
         if (localStorage.getItem("count_timer")) {
             var count_timer = localStorage.getItem("count_timer");
         } else {
-            var count_timer = 2700;
+            var count_timer = 30;
         }
+
         var minutes = parseInt(count_timer / 60);
         var seconds = parseInt(count_timer % 60);
 

@@ -15,6 +15,7 @@ class Hasil_tes extends Model
         'status_id',
         'hasil_keputusan',
         'keterangan',
+        'kategori_id',
     ];
 
     public function user()

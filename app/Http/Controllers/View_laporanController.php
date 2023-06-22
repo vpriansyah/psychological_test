@@ -11,8 +11,9 @@ class View_laporanController extends Controller
 
     public function index()
     {
+        $kategori = DB::table('kategori_tes')->first();
         $data = Hasil_tes::with('user')->orderByDesc('id')->paginate(5);
-        return view('hrd.view_laporan', compact('data'));
+        return view('hrd.view_laporan', compact('data', 'kategori'));
     }
 
     /**
@@ -20,7 +21,8 @@ class View_laporanController extends Controller
      */
     public function print()
     {
+        $kategori = DB::table('kategori_tes')->first();
         $data = Hasil_tes::with('user')->orderByDesc('id')->get();
-        return view('hrd.print', compact('data'));
+        return view('hrd.print', compact('data', 'kategori'));
     }
 }

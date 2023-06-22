@@ -60,13 +60,13 @@
                                     {{ $hasil->jumlah_poin }}
                                 </td>
                                 <td>
-                                    @if (($hasil->jumlah_poin > 156) | ($hasil->jumlah_poin == 156))
+                                    @if (($hasil->jumlah_poin > $kategori->ambang_batas) | ($hasil->jumlah_poin == $kategori->ambang_batas))
                                         <span class="badge rounded-pill bg-label-success">
                                             Lolos Ambang Batas
                                         </span>
                                     @endif
 
-                                    @if ($hasil->jumlah_poin < 156)
+                                    @if ($hasil->jumlah_poin < $kategori->ambang_batas)
                                         <span class="badge rounded-pill bg-label-danger">
                                             Tidak lolos Ambang Batas
                                         </span>
@@ -149,7 +149,7 @@
                                                     @endif
                                                 </div>
                                                 <div class="mb-3">
-                                                    Email : &emsp;{{ $hasil->email }}
+                                                    Email : &emsp;{{ $hasil->user->email }}
 
                                                 </div>
 

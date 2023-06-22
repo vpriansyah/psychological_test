@@ -106,11 +106,34 @@
                     <!-- Resource -->
                     <li class="menu-header small text-uppercase"><span class="menu-header-text">Resource</span></li>
                     <!-- Paket soal -->
-                    <li class="menu-item">
+                    {{-- <li class="menu-item">
                         <a href="/paket_soal" class="menu-link">
                             <i class="menu-icon tf-icons bx bx-dock-top"></i>
                             <div data-i18n="Tables">Paket Soal</div>
                         </a>
+                    </li> --}}
+                    <li class="menu-item">
+                        <a href="javascript:void(0);" class="menu-link menu-toggle">
+                            <i class="menu-icon tf-icons bx bx-dock-top"></i>
+                            <div data-i18n="Paket Soal">Paket Soal</div>
+                        </a>
+                        <ul class="menu-sub">
+                            <li class="menu-item">
+                                <a href="/kategori" class="menu-link">
+                                    <div data-i18n="Kategori">Kategori</div>
+                                </a>
+                            </li>
+                            <li class="menu-item">
+                                <a href="/informasi" class="menu-link">
+                                    <div data-i18n="informasi">Informasi Kategori</div>
+                                </a>
+                            </li>
+                            <li class="menu-item">
+                                <a href="/soal" class="menu-link">
+                                    <div data-i18n="Soal">Soal</div>
+                                </a>
+                            </li>
+                        </ul>
                     </li>
                     <li class="menu-item">
                         <a href="/laporan" class="menu-link">

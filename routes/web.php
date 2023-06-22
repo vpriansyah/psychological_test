@@ -100,14 +100,20 @@ Route::middleware(['auth', 'AdminMid'])->group(function () {
     Route::delete('/notification/{id}', [NotificationController::class, 'destroy']);
     Route::get('/changeStatusAjuan', [NotificationController::class, 'changeAjuanStatus']);
 
-    Route::get('/paket_soal', [Paket_soalController::class, 'index']);
-    Route::post('/paket_soal', [Paket_soalController::class, 'store']);
-    Route::delete('/paket_soal/{id}', [Paket_soalController::class, 'destroy']);
-    Route::put('/paket_soal/edit/{id}', [Paket_soalController::class, 'update']);
+    Route::get('/soal', [Paket_soalController::class, 'index']);
+    Route::post('/soal', [Paket_soalController::class, 'store']);
+    Route::delete('/soal/{id}', [Paket_soalController::class, 'destroy']);
+    Route::put('/soal/edit/{id}', [Paket_soalController::class, 'update']);
 
+    Route::get('/kategori', [Paket_soalController::class, 'index_kategori']);
     Route::post('/kategori', [Paket_soalController::class, 'store_kategori']);
     Route::delete('/kategori/{id}', [Paket_soalController::class, 'destroy_kategori']);
     Route::put('/kategori/edit/{id}', [Paket_soalController::class, 'update_kategori']);
+
+    Route::get('/informasi', [Paket_soalController::class, 'index_informasi']);
+    Route::post('/informasi', [Paket_soalController::class, 'store_informasi']);
+    Route::delete('/informasi/{id}', [Paket_soalController::class, 'destroy_informasi']);
+    Route::put('/informasi/edit/{id}', [Paket_soalController::class, 'update_informasi']);
 
 
     Route::get('/laporan', [LaporanController::class, 'index']);
