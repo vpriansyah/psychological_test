@@ -223,32 +223,6 @@
         setTimeout("countDownTimer()", 1000);
     </script>
 
-    <script>
-        function validateAge() {
-            var inputDate = document.getElementById('tanggal_lahir').value;
-            var today = new Date();
-            var selectedDate = new Date(inputDate);
-
-            // Menghitung umur dalam tahun
-            var age = today.getFullYear() - selectedDate.getFullYear();
-
-            // Mengatur tanggal ulang tahun yang sebelum hari ini
-            selectedDate.setFullYear(today.getFullYear());
-
-            // Memeriksa apakah tanggal ulang tahun telah terjadi atau belum
-            if (today < selectedDate) {
-                age--;
-            }
-
-            // Memeriksa apakah umur memenuhi batasan minimum (misalnya, 18 tahun)
-            if (age < 18) {
-                swal("Peringatan !", "Anda harus berusia minimal 18 tahun.");
-                return false;
-            }
-
-            return true;
-        }
-    </script>
 
 
 </body>

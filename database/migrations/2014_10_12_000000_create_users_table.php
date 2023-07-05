@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('posisi_pilihan')->nullable();
             $table->bigInteger('role_id')->index();
             $table->integer('status')->index();
+            $table->string('images')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

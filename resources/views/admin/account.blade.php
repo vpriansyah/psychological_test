@@ -108,7 +108,14 @@
 
 
                     </div>
-                    <button class="btn btn-primary ms-5" type="submit">search</button>
+                    <select class="form-select ms-5" name="search">
+                        <option value="">Semua Role</option>
+                        @foreach ($role as $role)
+                            <option value="{{ $role->id_role }}">{{ $role->role }}</option>
+                        @endforeach
+
+                    </select>
+                    <button class="btn btn-primary ms-3" type="submit">search</button>
                     </form>
 
                 </div>
@@ -159,7 +166,6 @@
                             <tr>
                                 <th>Username</th>
                                 <th>Email</th>
-                                <th>Password</th>
                                 <th>Role</th>
                                 <th>Status</th>
                                 <th>Actions</th>
@@ -172,9 +178,7 @@
                                         <strong>{{ $account->username }}</strong>
                                     </td>
                                     <td>{{ $account->email }}</td>
-                                    <td>
-                                        {{ $account->password }}
-                                    </td>
+
                                     <td>
                                         {{ $account->role }}
                                     </td>

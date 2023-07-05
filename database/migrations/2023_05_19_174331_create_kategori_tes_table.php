@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('kategori_tes', function (Blueprint $table) {
             $table->id();
             $table->string('kategori');
+            $table->integer('ambang_batas');
             $table->timestamps();
         });
     }

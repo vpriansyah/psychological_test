@@ -1,5 +1,6 @@
 @Extends('layouts.user')
 @section('user')
+    @php $no = 1; @endphp
     <div class="container-xxl flex-grow-1 container-p-y">
         <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Task /</span> Exam</h4>
         @if (session()->has('warning'))
@@ -22,7 +23,7 @@
                 </button>
 
                 <div class="card-footer text-muted text-primary">
-                    jumlah soal / waktu
+                    Soal hanya bisa dikerjakan sekali
                 </div>
             </div>
         </div>
@@ -47,21 +48,13 @@
                                 </div>
                                 <table class="table table-borderless">
                                     <tbody>
-                                        <tr>
-                                            <td>
-                                                1. Quiz berisi pertanyaan menengai Tes Karakteristik Pribadi.
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                2. Satu sesi berisi 45 butir soal.
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                3. Satu sesi dikerjakan dalam waktu 60 menit.
-                                            </td>
-                                        </tr>
+                                        @foreach ($informasi as $info)
+                                            <tr>
+                                                <td>
+                                                    {{ $info->informasi }}
+                                                </td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -78,7 +71,7 @@
                                         @foreach ($data as $rules)
                                             <tr>
                                                 <td>
-                                                    {{ $rules->rules_pengerjaan }}
+                                                    {{ $no++ }}. {{ $rules->rules_pengerjaan }}
                                                 </td>
                                             </tr>
                                         @endforeach

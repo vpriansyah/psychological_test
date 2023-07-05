@@ -27,6 +27,60 @@
         </div>
     </nav>
 
+    <!-- Modal  CREATE KATEGORI -->
+    <div class="modal fade" id="createkategori" tabindex="-1" aria-labelledby="createAlur" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createAlur">Create New Kategori</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Register Card -->
+                    <div class="card">
+                        <div class="card-body">
+                            <form id="formAuthentication" class="mb-3" action="/kategori" method="POST">
+                                @csrf
+                                <div class="mb-3">
+                                    <label for="kategori" class="form-label">Kategori</label>
+                                    <input type="text" id="kategori" name="kategori"
+                                        class="form-control @error('kategori') is-invalid @enderror"
+                                        placeholder="Enter your kategori" autofocus required />
+                                    @error('kategori')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                                <div class="mb-3">
+                                    <label for="ambang_batas" class="form-label">Ambang
+                                        batas</label>
+                                    <input type="text" id="ambang_batas" name="ambang_batas"
+                                        class="form-control @error('ambang_batas') is-invalid @enderror"
+                                        placeholder="Enter your ambang_batas" autofocus required />
+                                    @error('ambang_batas')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                    </form>
+
+
+                    <!-- kategori Card -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
 
     <div class="container-xxl flex-grow-1 container-p-y">
         <h4 class="fw-bold py-3 mb-1"><span class="text-muted fw-light">Resource /</span> Kategori</h4>
@@ -124,63 +178,7 @@
                                     </button>
                                 </td>
                             </tr>
-                            <!-- Modal  CREATE KATEGORI -->
-                            <div class="modal fade" id="createkategori" tabindex="-1" aria-labelledby="createAlur"
-                                aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="createAlur">Create New Kategori</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <!-- Register Card -->
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    <form id="formAuthentication" class="mb-3" action="/kategori"
-                                                        method="POST">
-                                                        @csrf
-                                                        <div class="mb-3">
-                                                            <label for="kategori" class="form-label">Kategori</label>
-                                                            <input type="text" id="kategori" name="kategori"
-                                                                class="form-control @error('kategori') is-invalid @enderror"
-                                                                placeholder="Enter your kategori" autofocus required />
-                                                            @error('kategori')
-                                                                <div class="invalid-feedback">
-                                                                    {{ $message }}
-                                                                </div>
-                                                            @enderror
-                                                        </div>
-                                                        <div class="mb-3">
-                                                            <label for="ambang_batas" class="form-label">Ambang
-                                                                batas</label>
-                                                            <input type="text" id="ambang_batas" name="ambang_batas"
-                                                                class="form-control @error('ambang_batas') is-invalid @enderror"
-                                                                placeholder="Enter your ambang_batas" autofocus required />
-                                                            @error('ambang_batas')
-                                                                <div class="invalid-feedback">
-                                                                    {{ $message }}
-                                                                </div>
-                                                            @enderror
-                                                        </div>
-                                                </div>
-                                                <button type="submit" class="btn btn-primary">Save changes</button>
-                                            </div>
-                                            </form>
 
-
-                                            <!-- kategori Card -->
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-bs-dismiss="modal">Close</button>
-
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
 
                             {{-- MODAL VIEW --}}
 

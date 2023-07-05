@@ -94,6 +94,19 @@
                     </div>
                 </div>
                 <div class="content-backdrop fade"></div>
+                <div class="col-lg-12 mb-4 order-1">
+
+
+                    <div class="card">
+                        <div class="card-body">
+                            <canvas id="myChart"></canvas>
+                        </div>
+                    </div>
+
+                </div>
             </div>
-            <!-- Content wrapper -->
-        @endsection
+        </div>
+
+
+        <!-- Content wrapper -->
+    @endsection

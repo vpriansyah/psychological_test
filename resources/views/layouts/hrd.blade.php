@@ -209,4 +209,44 @@
 
 </body>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    const ctx = document.getElementById('myChart');
+
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Jumlah Pendaftar', 'Sudah Mengerjakan', 'Belum Mengerjakan', 'User Aktif'],
+            datasets: [{
+                label: 'Grafik Account',
+                data: [{{ $data2 }}, {{ $sudah_mengerjakan }}, {{ $data2 }} -
+                    {{ $sudah_mengerjakan }}, {{ $user_aktif }}
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            indexAxis: 'y',
+            // Elements options apply to all of the options unless overridden in a dataset
+            // In this case, we are setting the border of each horizontal bar to be 2px wide
+            elements: {
+                bar: {
+                    borderWidth: 2,
+                }
+            },
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'right',
+                },
+                title: {
+                    display: true,
+                    text: 'Grafik Account User'
+                }
+            }
+        },
+    });
+</script>
+
 </html>

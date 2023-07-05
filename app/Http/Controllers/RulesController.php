@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Tata_tertib;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class RulesController extends Controller
 {
@@ -12,8 +13,11 @@ class RulesController extends Controller
      */
     public function index()
     {
+        $data2 = DB::table('users')->where('role_id', '=', 1)->count();
+        $sudah_mengerjakan = DB::table('hasil_test')->count();
+        $user_aktif = DB::table('users')->where('role_id', '=', 1)->where('status', '=', 1)->count();
         $data = Tata_tertib::all();
-        return view('hrd.rules', compact('data'));
+        return view('hrd.rules', compact('data', 'data2', 'sudah_mengerjakan', 'user_aktif'));
     }
 
     public function store(Request $request)

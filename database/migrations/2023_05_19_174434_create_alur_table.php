@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('alur', function (Blueprint $table) {
             $table->id();
             $table->string('alur_pengerjaan');
+            $table->integer('urutan');
             $table->timestamps();
         });
     }

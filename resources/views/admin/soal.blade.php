@@ -11,7 +11,10 @@
         <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
             <!-- Search -->
             <div class="navbar-nav align-items-center">
+
+
                 <div class="nav-item d-flex align-items-center">
+
                     <span class="bx bx-search fs-4 lh-0"></span>
                     <form action="/soal" method="GET">
                         <input type="search" class="form-control border-0 shadow-none" name="search"
@@ -19,6 +22,14 @@
 
 
                 </div>
+                <select class="form-select ms-5" name="search">
+                    <option value="">Semua Kategori</option>
+                    @foreach ($kategori as $kat2)
+                        <option value="{{ $kat2->id }}">{{ $kat2->kategori }}</option>
+                    @endforeach
+
+                </select>
+
                 <button class="btn btn-primary ms-5" type="submit">search</button>
                 </form>
             </div>
@@ -215,6 +226,7 @@
             <h5 class="card-header">Table Paket Soal</h5>
             <div class="row align-items-start">
                 <div class="row">
+
                     <div class="col-md-4 offset-md-10">
                         <button class="btn btn-primary" type="button" data-bs-toggle="modal"
                             data-bs-target="#createSoal">Create New Soal</button>

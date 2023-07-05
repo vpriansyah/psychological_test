@@ -14,9 +14,11 @@ class Paket_soalController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $kategori = DB::table('kategori_tes')->get();
+
+
         $data = Poin::with('kategori')
             ->where('soal', 'like', '%' . request('search') . '%')
             ->orwhere('jawaban_A', 'like', '%' . request('search') . '%')
@@ -24,8 +26,11 @@ class Paket_soalController extends Controller
             ->orwhere('jawaban_C', 'like', '%' . request('search') . '%')
             ->orwhere('jawaban_D', 'like', '%' . request('search') . '%')
             ->orwhere('jawaban_E', 'like', '%' . request('search') . '%')
+            ->orwhere('kategori_id', 'like', '%' . request('search') . '%')
             ->paginate(5);
-        return view('admin.soal', compact('data', 'kategori'));
+
+
+        return view('admin.soal', compact('data', 'kategori',));
     }
 
 
@@ -63,7 +68,7 @@ class Paket_soalController extends Controller
     public function store_informasi(Request $request)
     {
         $validatedData = $request->validate([
-            'informasi' => ['required', 'min:1', 'max:255', 'unique:kategori_tes'],
+            'informasi' => ['required', 'min:1', 'max:255', 'unique:informasi_kategori'],
             'kategori_id' => ['required'],
         ]);
         Informasi_kat::create($validatedData);
@@ -122,7 +127,7 @@ class Paket_soalController extends Controller
         ];
 
         if ($request->informasi != $id->informasi) {
-            $rules['informasi'] = 'required|min:1|max:255|unique:kategori_tes';
+            $rules['informasi'] = 'required|min:1|max:255|unique:informasi_kategori';
         }
 
         $validatedData = $request->validate($rules);

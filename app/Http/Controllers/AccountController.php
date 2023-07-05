@@ -22,12 +22,14 @@ class AccountController extends Controller
 
     public function index()
     {
+        $role = DB::table('role')->get();
         $data = DB::table('users')->where('username', 'like', '%' . request('search') . '%')
             ->orWhere('email', 'like', '%' . request('search') . '%')
             ->orWhere('role', 'like', '%' . request('search') . '%')
+            ->orWhere('role_id', 'like', '%' . request('search') . '%')
             ->join('role', 'users.role_id', '=', 'role.id_role')->paginate(5);
 
-        return view('admin.account', compact('data'));
+        return view('admin.account', compact('data', 'role'));
     }
 
     /**
@@ -45,7 +47,7 @@ class AccountController extends Controller
                 'body2' => $body2,
             ];
 
-            Mail::send('template_email', $email, function ($message) use ($email) {
+            Mail::send('email.template_email', $email, function ($message) use ($email) {
                 $message->from($email['fromEmail'], $email['fromName']);
                 $message->to($email['recepient']);
                 $message->subject($email['subject']);

@@ -74,6 +74,8 @@ Route::middleware(['auth', 'UserMid'])->group(function () {
         Route::get('/quiz-add', [ExamController::class, 'addHasilTest']);
 
         Route::middleware(['CekQuiz'])->group(function () {
+            Route::get('/take_code', [ExamController::class, 'take_code']);
+            Route::post('/take_code', [ExamController::class, 'add_kode']);
             Route::get('/quiz', [ExamController::class, 'indexquiz']);
             Route::post('/submitquiz', [ExamController::class, 'submit']);
         });
@@ -105,6 +107,8 @@ Route::middleware(['auth', 'AdminMid'])->group(function () {
     Route::delete('/soal/{id}', [Paket_soalController::class, 'destroy']);
     Route::put('/soal/edit/{id}', [Paket_soalController::class, 'update']);
 
+
+
     Route::get('/kategori', [Paket_soalController::class, 'index_kategori']);
     Route::post('/kategori', [Paket_soalController::class, 'store_kategori']);
     Route::delete('/kategori/{id}', [Paket_soalController::class, 'destroy_kategori']);
@@ -129,9 +133,7 @@ Route::middleware(['auth', 'AdminMid'])->group(function () {
 
 // <!-- HRD Route -->
 Route::middleware(['auth', 'HrdMid'])->group(function () {
-    Route::get('/hrd', function () {
-        return view('hrd/dashboard_hrd');
-    });
+    Route::get('/hrd', [DashboardController::class, 'dashboard_hrd']);
     Route::get('/rules', [RulesController::class, 'index']);
     Route::post('/rules', [RulesController::class, 'store']);
     Route::put('/rules/edit/{id}', [RulesController::class, 'update']);
@@ -143,6 +145,8 @@ Route::middleware(['auth', 'HrdMid'])->group(function () {
     Route::delete('/alur/{id}', [AlurController::class, 'destroy']);
 
     Route::get('/view_laporan', [View_laporanController::class, 'index']);
+    Route::post('/EmailLolos', [View_laporanController::class, 'lolos'])->name('EmailLolos');
+    Route::post('/EmailTidakLolos', [View_laporanController::class, 'tidak_lolos'])->name('EmailTidakLolos');
     Route::get('/print_laporan_hrd', [View_laporanController::class, 'print']);
 });
 // <!-- HRD Route -->

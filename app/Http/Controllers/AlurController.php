@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Alur;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 
 class AlurController extends Controller
@@ -14,9 +15,12 @@ class AlurController extends Controller
     public function index()
     {
         // $data = Alur::all();
+        $data2 = DB::table('users')->where('role_id', '=', 1)->count();
+        $sudah_mengerjakan = DB::table('hasil_test')->count();
+        $user_aktif = DB::table('users')->where('role_id', '=', 1)->where('status', '=', 1)->count();
         $data = Alur::orderBy('urutan')->get();
         // $datatatatertib = Tata_tertib::all();
-        return view('hrd.alur', compact('data'));
+        return view('hrd.alur', compact('data', 'data2', 'sudah_mengerjakan', 'user_aktif'));
     }
 
     /**

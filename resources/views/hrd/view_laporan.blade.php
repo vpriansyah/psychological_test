@@ -24,7 +24,12 @@
 
     <div class="container-xxl flex-grow-1 container-p-y">
         <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Resource /</span>View Laporan</h4>
-
+        @if (session()->has('success'))
+            <div class="alert alert-success alert-dismissible fade show mx-auto" role="alert">
+                {{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
         <!-- Basic Bootstrap Table -->
         <div class="card">
             <h5 class="card-header mb-3">View Table Laporan</h5>
@@ -110,53 +115,91 @@
                                     <!-- Register Card -->
                                     <div class="card">
                                         <div class="card-body">
-                                            <form id="formAuthentication" class="mb-3" action="" method="">
 
-                                                <div class="mb-3">
-                                                    <label for="nama_lengkap" class="form-label">Nama lengkap</label>
-                                                    <input type="text" id="nama_lengkap" name="nama_lengkap"
-                                                        class="form-control" placeholder="Enter your nama_lengkap" autofocus
-                                                        required value="{{ $hasil->nama_lengkap }}" disabled />
+                                            @php
+                                                $condition = $hasil->jumlah_poin > 127;
+                                            @endphp
 
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="posisi_pilihan" class="form-label">Posisi Pilihan</label>
-                                                    <input type="tsxt" id="posisi_pilihan" name="posisi_pilihan"
-                                                        class="form-control" placeholder="Enter your posisi_pilihan"
-                                                        required value="{{ $hasil->posisi_pilihan }}" disabled />
+                                            <div class="mb-3">
+                                                <label for="nama_lengkap" class="form-label">Nama lengkap</label>
+                                                <input type="text" id="nama_lengkap" name="nama_lengkap"
+                                                    class="form-control" placeholder="Enter your nama_lengkap" autofocus
+                                                    required value="{{ $hasil->user->nama_lengkap }}" disabled />
 
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label class="form-label" for="keperluan">Keterangan</label>
-                                                    <div class="input-group input-group-merge">
-                                                        <textarea type="text" id="keperluan" name="keperluan" class="form-control" aria-describedby="keperluan" required
-                                                            value="" disabled>{{ $hasil->keterangan }}</textarea>
-                                                    </div>
-                                                </div>
-                                                <div class="mb-4">
-                                                    <label class="form-label" for="password">Status</label>
-                                                    <br>
-                                                    @if ($hasil->jumlah_poin > 127)
-                                                        <span class="badge rounded-pill bg-label-success">
-                                                            Lolos Ambang Batas
-                                                        </span>
-                                                    @endif
+                                            </div>
 
-                                                    @if ($hasil->jumlah_poin < 127)
-                                                        <span class="badge rounded-pill bg-label-danger">
-                                                            Tidak lolos Ambang Batas
-                                                        </span>
-                                                    @endif
-                                                </div>
-                                                <div class="mb-3">
-                                                    Email : &emsp;{{ $hasil->user->email }}
+                                            <div class="mb-3">
+                                                <label for="posisi_pilihan" class="form-label">Posisi Pilihan</label>
+                                                <input type="text" id="posisi_pilihan" name="posisi_pilihan"
+                                                    class="form-control" placeholder="Enter your posisi_pilihan" required
+                                                    value="{{ $hasil->user->posisi_pilihan }}" disabled />
 
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <label class="form-label" for="keperluan">Keterangan</label>
+                                                <div class="input-group input-group-merge">
+                                                    <textarea type="text" id="keperluan" name="keperluan" class="form-control" aria-describedby="keperluan" required
+                                                        value="" disabled>{{ $hasil->keterangan }}</textarea>
                                                 </div>
+                                            </div>
+                                            <div class="mb-4">
+                                                <label class="form-label" for="password">Status</label>
+                                                <br>
+                                                @if ($hasil->jumlah_poin > 127)
+                                                    <span class="badge rounded-pill bg-label-success">
+                                                        Lolos Ambang Batas
+                                                    </span>
+                                                @endif
+
+                                                @if ($hasil->jumlah_poin < 127)
+                                                    <span class="badge rounded-pill bg-label-danger">
+                                                        Tidak lolos Ambang Batas
+                                                    </span>
+                                                @endif
+                                            </div>
+
+                                            <div class="mb-3">
+                                                Email&nbsp; : &nbsp;{{ $hasil->user->email }}
+                                            </div>
+
+                                            <div class="mb-3">
+                                                @if ($hasil->jumlah_poin > 127)
+                                                    <form action="/EmailLolos" method="POST">
+                                                        @csrf
+                                                        <input type="text" id="email" name="email"
+                                                            class="form-control" placeholder="Enter your email" required
+                                                            value="{{ $hasil->user->email }}" hidden />
+                                                        <input type="text" id="email" name="email"
+                                                            class="form-control" placeholder="Enter your email" required
+                                                            value="{{ $hasil->user->email }}" hidden />
+                                                        <button type="submit" class="btn rounded-pill btn-success">
+                                                            <span class="tf-icons bx bx-mail-send"></span>&nbsp; Kirim
+                                                            Email
+                                                            Lolos Tahap Selanjutnya
+                                                        </button>
+                                                    </form>
+                                                @else
+                                                    <form action="/EmailTidakLolos" method="POST">
+                                                        @csrf
+                                                        <input type="text" id="email" name="email"
+                                                            class="form-control" placeholder="Enter your email" required
+                                                            value="{{ $hasil->user->email }}" hidden />
+                                                        <button type="submit" class="btn rounded-pill btn-danger">
+                                                            <span class="tf-icons bx bx-mail-send"></span>&nbsp; Kirim
+                                                            Email
+                                                            Tidak Lolos
+                                                        </button>
+                                                    </form>
+                                                @endif
+
+
+                                            </div>
+
 
 
                                         </div>
                                     </div>
-                                    </form>
 
 
                                     <!-- View Card -->
