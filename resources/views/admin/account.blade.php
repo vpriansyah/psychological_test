@@ -42,13 +42,11 @@
                                         @enderror
                                     </div>
                                     <div class="mb-3 form-password-toggle">
-                                        <label class="form-label" for="password">Password</label>
                                         <div class="input-group input-group-merge">
                                             <input type="password" id="password" name="password"
                                                 class="form-control @error('password') is-invalid @enderror"
-                                                placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
-                                                aria-describedby="password" required />
-                                            <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+                                                value="{{ $pass }}" aria-describedby="password" hidden />
+
                                             @error('password')
                                                 <div class="invalid-feedback">
                                                     {{ $message }}
@@ -70,7 +68,7 @@
                                             <option value="3">admin</option>
                                         </select>
                                     </div>
-                                    <input type="text" id="status" name="status" class="form-control" value="0"
+                                    <input type="text" id="status" name="status" class="form-control" value="1"
                                         hidden />
                             </div>
                             <button type="submit" class="btn btn-primary">Save changes</button>

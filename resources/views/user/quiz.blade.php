@@ -12,7 +12,6 @@
     </style>
     <div class="container-xxl flex-grow-1 container-p-y">
         <h4 class="fw-bold py-3 mb-0"><span class="text-muted fw-light">Task /</span> Quiz</h4>
-        <div id="total-time-left" align="center"> </div>
         @php
             $nomor_soal = 1;
             $no_id = 1;
@@ -25,6 +24,7 @@
                     <div class="card-body">
 
                         <div class="row">
+                            <div id="total-time-left" align="center" class="mb-3 text-secondary"> </div>
                             @while ($count_id <= 45)
                                 <div class="col"><a class="nav-link scrollto"
                                         href="#{{ $count_id++ }}">{{ $count++ }}</a></div>

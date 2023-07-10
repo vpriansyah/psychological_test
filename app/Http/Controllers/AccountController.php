@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 
 class AccountController extends Controller
 {
@@ -22,6 +23,7 @@ class AccountController extends Controller
 
     public function index()
     {
+        $pass = Str::random(4) . Str::random(4);
         $role = DB::table('role')->get();
         $data = DB::table('users')->where('username', 'like', '%' . request('search') . '%')
             ->orWhere('email', 'like', '%' . request('search') . '%')
@@ -29,7 +31,7 @@ class AccountController extends Controller
             ->orWhere('role_id', 'like', '%' . request('search') . '%')
             ->join('role', 'users.role_id', '=', 'role.id_role')->paginate(5);
 
-        return view('admin.account', compact('data', 'role'));
+        return view('admin.account', compact('data', 'role', 'pass'));
     }
 
     /**
@@ -70,8 +72,6 @@ class AccountController extends Controller
      */
     public function store(Request $request)
     {
-
-
 
         $validatedData = $request->validate([
             'username' => ['required', 'min:3', 'max:255'],

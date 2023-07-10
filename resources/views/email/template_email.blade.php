@@ -1,6 +1,9 @@
 Dear Calon Karyawan, <br>
 <br>
-Terima kasih telah mendaftar di perusahaan Monster Group. Untuk melanjutkan proses pengerjaan psikotes, Anda perlu
+Terima kasih telah mendaftar di perusahaan Monster Group. Kami dengan senang hati menginformasikan bahwa akun anda sudah
+<b>AKTIF</b>.
+<br>
+Untuk melanjutkan proses pengerjaan psikotes, Anda perlu
 melakukan login akun.<br>
 <br>
 Berikut adalah langkah-langkah untuk login menggunakan akun Anda:<br>

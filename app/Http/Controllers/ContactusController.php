@@ -17,6 +17,6 @@ class ContactusController extends Controller
         ]);
 
         Contact_us::create($validatedData);
-        return view('index');
+        return back();
     }
 }

@@ -492,11 +492,11 @@
                                         <input type="email"
                                             class="form-control @error('email') is-invalid @enderror" name="email"
                                             id="email" placeholder="Your Email" required>
-                                        @error('email')
+                                        {{-- @error('email')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
                                             </div>
-                                        @enderror
+                                        @enderror --}}
                                     </div>
                                 </div>
                                 <div class="form-group mt-3">
@@ -522,8 +522,10 @@
                                     <div class="error-message"></div>
                                     <div class="sent-message">Your message has been sent. Thank you!</div>
                                 </div>
-                                <div class="text-center"><button type="submit" onclick="contoh()">Send
-                                        Message</button></div>
+                                <div class="text-center">
+                                    <button type="submit">Send
+                                        Message</button>
+                                </div>
                             </form>
                         </div><!-- End Contact Form -->
 

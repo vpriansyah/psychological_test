@@ -204,8 +204,8 @@
                 minutes = "0" + minutes;
             }
 
-            document.getElementById("total-time-left").innerHTML = "Time Left : " + minutes + " Minutes " + seconds +
-                " Seconds";
+            document.getElementById("total-time-left").innerHTML = minutes + " Minutes " + seconds +
+                " Seconds" + " Left";
 
 
             if (count_timer <= 0) {
