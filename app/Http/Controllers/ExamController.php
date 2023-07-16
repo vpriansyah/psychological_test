@@ -64,18 +64,20 @@ class ExamController extends Controller
     public function addHasilTest()
     {
         $condition = Hasil_tes::where('peserta_id', Auth::user()->id)->first();
+        $receiver = Auth::user()->email;
+        $subject = 'Kode Unik Pengerjaan';
+        $kode = 0;
         if ($condition == null) {
             $otp = rand(1000, 9999);
-
             Hasil_tes::create([
                 'peserta_id' => Auth::user()->id,
                 'otp' => $otp,
             ]);
-
-            $receiver = Auth::user()->email;
-            $subject = 'Kode Unik Pengerjaan';
             $kode = $otp;
 
+            $this->sendKode($receiver, $subject, $kode);
+        } else {
+            $kode = $condition->otp;
             $this->sendKode($receiver, $subject, $kode);
         }
 

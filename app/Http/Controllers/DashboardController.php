@@ -31,6 +31,7 @@ class DashboardController extends Controller
         }
     }
 
+
     public function dashboard_hrd()
     {
         $data2 = DB::table('users')->where('role_id', '=', 1)->count();

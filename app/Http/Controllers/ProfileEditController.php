@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProfileEditController extends Controller
 {
@@ -13,7 +14,8 @@ class ProfileEditController extends Controller
     public function index()
     {
         $data = User::all();
-        return view('user.profileEdit', compact('data'));
+        $posisi = DB::table('posisi')->where('status', '=', 1)->get();
+        return view('user.profileEdit', compact('data', 'posisi'));
     }
 
     public function update(Request $request, User $id)

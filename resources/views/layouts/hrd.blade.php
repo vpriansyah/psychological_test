@@ -76,6 +76,15 @@
                     </li>
 
                     <!-- Resource -->
+                    <li class="menu-header small text-uppercase"><span class="menu-header-text">Data</span></li>
+                    <!-- Pisisi -->
+                    <li class="menu-item">
+                        <a href="/posisi" class="menu-link">
+                            <i class="menu-icon tf-icons bx bx-dock-top"></i>
+                            <div data-i18n="Tables">Posisi Pilihan</div>
+                        </a>
+                    </li>
+                    <!-- Resource -->
                     <li class="menu-header small text-uppercase"><span class="menu-header-text">Resource</span></li>
                     <!-- Rules -->
                     <li class="menu-item">
@@ -205,6 +214,31 @@
 
     {{-- SweetAler2 --}}
     <script src="assets/sweetalert2/dist/sweetalert2.all.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $("posisi").DataTable()
+        });
+
+        $(function() {
+            $('.form-check-input').change(function() {
+                var status = $(this).prop('checked') == true ? 1 : 0;
+                var id = $(this).data('id');
+                $.ajax({
+                    type: "GET",
+                    dataType: "json",
+                    url: '/changeStatusPosisi',
+                    data: {
+                        'status': status,
+                        'id': id
+                    },
+                    success: function(data) {
+                        console.log('Success')
+                    }
+                })
+            });
+        });
+    </script>
+
 
 
 </body>
@@ -215,7 +249,7 @@
     const ctx = document.getElementById('myChart');
 
     new Chart(ctx, {
-        type: 'bar',
+        type: 'pie',
         data: {
             labels: ['Jumlah Pendaftar', 'Sudah Mengerjakan', 'Belum Mengerjakan', 'User Aktif'],
             datasets: [{
@@ -227,12 +261,12 @@
             }]
         },
         options: {
-            indexAxis: 'y',
+            indexAxis: 'x',
             // Elements options apply to all of the options unless overridden in a dataset
             // In this case, we are setting the border of each horizontal bar to be 2px wide
             elements: {
                 bar: {
-                    borderWidth: 2,
+                    borderWidth: 1,
                 }
             },
             responsive: true,

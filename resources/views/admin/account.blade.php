@@ -17,7 +17,8 @@
                         <!-- Register Card -->
                         <div class="card">
                             <div class="card-body">
-                                <form id="formAuthentication" class="mb-3" action="/account" method="POST">
+                                <form id="formAuthentication" class="mb-3" action="/account" method="POST"
+                                    autocomplete="off">
                                     @csrf
                                     <div class="mb-3">
                                         <label for="username" class="form-label">Username</label>
@@ -45,7 +46,8 @@
                                         <div class="input-group input-group-merge">
                                             <input type="password" id="password" name="password"
                                                 class="form-control @error('password') is-invalid @enderror"
-                                                value="{{ $pass }}" aria-describedby="password" hidden />
+                                                value="{{ $pass }}" aria-describedby="password" autocomplete="off"
+                                                hidden />
 
                                             @error('password')
                                                 <div class="invalid-feedback">
@@ -330,25 +332,7 @@
                                                                     </div>
                                                                 @enderror
                                                             </div>
-                                                            <div class="mb-3 form-password-toggle">
-                                                                <label class="form-label" for="password">Password</label>
-                                                                <div class="input-group input-group-merge">
-                                                                    <input type="password" id="password" name="password"
-                                                                        class="form-control @error('password') is-invalid @enderror"
-                                                                        placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
-                                                                        aria-describedby="password" required
-                                                                        value="{{ $account->password }}" disabled />
-                                                                    <span
-                                                                        class="input-group-text
-                                                                        cursor-pointer"><i
-                                                                            class="bx bx-hide"></i></span>
-                                                                    @error('password')
-                                                                        <div class="invalid-feedback">
-                                                                            {{ $message }}
-                                                                        </div>
-                                                                    @enderror
-                                                                </div>
-                                                            </div>
+
                                                             <div class="mb-3">
                                                                 <select
                                                                     class="form-select @error('role_id') is-invalid @enderror"

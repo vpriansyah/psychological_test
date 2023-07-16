@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Hasil_tes;
 use App\Models\User;
 use Closure;
 use Illuminate\Http\Request;
@@ -17,6 +18,7 @@ class CekProfileUser
     public function handle(Request $request, Closure $next): Response
     {
         $profile = User::where('id', '=', auth()->user()->id)->first();
+
         if (!$profile->nama_lengkap) {
             return redirect()->route('profile')->with('warning', 'Lengkapi profil anda terlebih dahulu!');
         } elseif (!$profile->posisi_pilihan) {

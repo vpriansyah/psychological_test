@@ -83,15 +83,14 @@
                         <div class="row mb-3">
                             <label class="col-sm-2 col-form-label" for="basic-default-company">Posisi Pilihan</label>
                             <div class="col-sm-10">
-                                <input name="posisi_pilihan" type="text"
-                                    class="form-control @error('posisi_pilihan') is-invalid @enderror"
-                                    id="basic-default-company" placeholder="Masukkan posisi yang dilamar"
-                                    value="{{ auth()->user()->posisi_pilihan }}" />
-                                @error('posisi_pilihan')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
+                                <select class="form-select @error('posisi_pilihan') is-invalid @enderror"
+                                    aria-label="Default select example" name="posisi_pilihan" required>
+                                    <option value="">Pilih Posisi Pilihan</option>
+                                    @foreach ($posisi as $posisi)
+                                        <option value="{{ $posisi->posisi }}">{{ $posisi->posisi }}</option>
+                                    @endforeach
+
+                                </select>
                             </div>
                         </div>
                         <div class="row mb-3">

@@ -9,6 +9,7 @@ use App\Http\Controllers\ContactusController;
 use App\Http\Controllers\ExamController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\PosisiController;
 use App\Http\Controllers\Paket_soalController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProfileEditController;
@@ -134,6 +135,11 @@ Route::middleware(['auth', 'AdminMid'])->group(function () {
 // <!-- HRD Route -->
 Route::middleware(['auth', 'HrdMid'])->group(function () {
     Route::get('/hrd', [DashboardController::class, 'dashboard_hrd']);
+    Route::get('/posisi', [PosisiController::class, 'index']);
+    Route::post('/posisi', [PosisiController::class, 'store']);
+    Route::delete('/posisi/{id}', [PosisiController::class, 'destroy']);
+    Route::get('/changeStatusPosisi', [PosisiController::class, 'changePosisiStatus']);
+
     Route::get('/rules', [RulesController::class, 'index']);
     Route::post('/rules', [RulesController::class, 'store']);
     Route::put('/rules/edit/{id}', [RulesController::class, 'update']);

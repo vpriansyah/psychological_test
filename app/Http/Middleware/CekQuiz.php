@@ -17,11 +17,15 @@ class CekQuiz
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $profile = Hasil_tes::where('peserta_id', auth()->user()->id)->first();
-        // dd($profile);
-
-        if ($profile->jumlah_poin != null) {
-            return redirect()->route('exam')->with('warning', 'Anda pernah mengerjakan quiz ini !');
+        $hasilTest = Hasil_tes::where('peserta_id', auth()->user()->id)->orderBy('id', 'desc')->first();
+        if ($hasilTest != null) {
+            $currentYear = date('Y');
+            $lastExam = strtotime($hasilTest->updated_at);
+            if ($hasilTest->jumlah_poin != null) {
+                if ($currentYear == date("Y", $lastExam)) {
+                    return redirect()->back()->with('warning', 'Anda pernah mengerjakan ini, Coba lagi tahun depan !');
+                }
+            }
         }
 
         return $next($request);
