@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PosisiController;
+use App\Http\Controllers\PostmenController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,3 +19,10 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('/posisi', [PostmenController::class, 'posisi']);
+Route::get('/soal', [PostmenController::class, 'soal']);
+Route::get('/user', [PostmenController::class, 'profile']);
+Route::get('/rules', [PostmenController::class, 'rules']);
+Route::get('/alur', [PostmenController::class, 'alur']);
+Route::get('/laporan', [PostmenController::class, 'laporan']);

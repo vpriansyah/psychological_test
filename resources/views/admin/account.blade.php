@@ -250,20 +250,21 @@
                                                                     required value="{{ $account->email }}" disabled />
 
                                                             </div>
-                                                            <div class="mb-3 form-password-toggle">
-                                                                <label class="form-label" for="password">Password</label>
-                                                                <div class="input-group input-group-merge">
-                                                                    <input type="text" id="password" name="password"
-                                                                        class="form-control" aria-describedby="password"
-                                                                        required value="{{ $account->password }}"
-                                                                        disabled />
-                                                                </div>
-                                                            </div>
+
                                                             <div class="mb-3">
+                                                                <label for="Role" class="form-label">Role</label>
                                                                 <select class="form-select"
                                                                     aria-label="Default select example" name="role_id"
                                                                     disabled>
-                                                                    <option selected>{{ $account->role_id }}</option>
+                                                                    <option selected>
+                                                                        @if ($account->role_id == 1)
+                                                                            User
+                                                                        @elseif ($account->role_id == 2)
+                                                                            HRD
+                                                                        @else
+                                                                            Admin
+                                                                        @endif
+                                                                    </option>
                                                                     <option value="1">User</option>
                                                                     <option value="2">HRD</option>
                                                                     <option value="3">admin</option>

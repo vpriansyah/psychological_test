@@ -19,8 +19,9 @@ class AlurController extends Controller
         $sudah_mengerjakan = DB::table('hasil_test')->count();
         $user_aktif = DB::table('users')->where('role_id', '=', 1)->where('status', '=', 1)->count();
         $data = Alur::orderBy('urutan')->get();
+        $user_belum = $data2 - $sudah_mengerjakan;
         // $datatatatertib = Tata_tertib::all();
-        return view('hrd.alur', compact('data', 'data2', 'sudah_mengerjakan', 'user_aktif'));
+        return view('hrd.alur', compact('data', 'data2', 'sudah_mengerjakan', 'user_aktif', 'user_belum'));
     }
 
     /**

@@ -12,7 +12,7 @@ class ContactusController extends Controller
         $validatedData = $request->validate([
             'nama' => ['required', 'min:3', 'max:255'],
             'email' => 'required|min:1|max:255|email:dns|unique:contactus',
-            'subject' => 'required|min:5|max:255',
+            'subject' => 'required|max:255',
             'pesan' => 'required|min:5|max:255',
         ]);
 

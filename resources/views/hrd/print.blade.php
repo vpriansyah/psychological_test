@@ -18,7 +18,7 @@
         <h3 align="center"><b>Laporan Pengerjaan
                 Psikotes</b></h3>
         <p style="margin-left:40px; margin-top:40px;"> <b>PT Monster Teknologi Kencana</b> </p>
-        <p style="margin-left:40px;"> <b>Periode : 2023</b> </p>
+        <p style="margin-left:40px;"> <b>Periode : {{ $tanggal_awal }} - {{ $tanggal_akhir }}</b> </p>
         <p style="margin-left:40px;">Laporan hasil pengerjaan psikotes yang telah dilaksanakan. Dalam surat ini,
             menjelaskan secara detail mengenai proses pelaksanaan tes psikologi, temuan yang ditemukan, dan
             kesimpulan yang dapat diambil dari hasil tersebut.</p>
@@ -37,7 +37,7 @@
                 </tr>
             </thead>
             <tbody class="text-center">
-                @foreach ($data as $hasil)
+                @foreach ($hasil as $hasil)
                     <tr>
 
                         <td>

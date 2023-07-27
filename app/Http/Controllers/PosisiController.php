@@ -17,20 +17,12 @@ class PosisiController extends Controller
         $sudah_mengerjakan = DB::table('hasil_test')->count();
         $user_aktif = DB::table('users')->where('role_id', '=', 1)->where('status', '=', 1)->count();
         $data = DB::table('posisi')->get();
-        return view('hrd.posisi', compact('data', 'data2', 'sudah_mengerjakan', 'user_aktif'));
+        $user_belum = $data2 - $sudah_mengerjakan;
+
+        return view('hrd.posisi', compact('data', 'data2', 'sudah_mengerjakan', 'user_aktif', 'user_belum'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $validatedData = $request->validate([
@@ -38,32 +30,10 @@ class PosisiController extends Controller
         ]);
 
         Posisi::create($validatedData);
+
         return redirect('/posisi')->with('success', 'Data telah berhasil ditambahkan');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Posisi $posisi)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Posisi $posisi)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Posisi $posisi)
-    {
-        //
-    }
 
     public function changePosisiStatus(Request $request)
     {
@@ -79,5 +49,10 @@ class PosisiController extends Controller
     {
         Posisi::destroy($id->id);
         return redirect('/posisi')->with('delete', 'Data telah berhasil dihapus');
+    }
+
+    public function cekposisi()
+    {
+        $posisi = Posisi::all();
     }
 }

@@ -16,13 +16,15 @@ class DashboardController extends Controller
         $data3 = DB::table('users')->where('role_id', '=', 2)->count();
         $sudah_mengerjakan = DB::table('hasil_test')->count();
         $user_aktif = DB::table('users')->where('role_id', '=', 1)->where('status', '=', 1)->count();
+
+        $user_belum = $data2 - $sudah_mengerjakan;
         if (Auth::user()) {
             if (Auth::user()->role_id == 1 && Auth::user()->status == 1) {
                 $users = DB::table('users');
                 return view('user/dashboard_user', ['users' => $users], compact('data'));
             } elseif (Auth::user()->role_id == 2 && Auth::user()->status == 1) {
                 $users = DB::table('users');
-                return view('hrd/dashboard_hrd', ['users' => $users], compact('data2', 'sudah_mengerjakan', 'user_aktif'));
+                return view('hrd/dashboard_hrd', ['users' => $users], compact('data2', 'sudah_mengerjakan', 'user_aktif', 'user_belum'));
             } elseif (Auth::user()->role_id == 3 && Auth::user()->status == 1) {
                 $users = DB::table('users');
                 return view('admin/dashboard_admin', ['users' => $users], compact('data2', 'data3'));
@@ -37,6 +39,7 @@ class DashboardController extends Controller
         $data2 = DB::table('users')->where('role_id', '=', 1)->count();
         $sudah_mengerjakan = DB::table('hasil_test')->count();
         $user_aktif = DB::table('users')->where('role_id', '=', 1)->where('status', '=', 1)->count();
-        return view('hrd.dashboard_hrd', compact('data2', 'sudah_mengerjakan', 'user_aktif'));
+        $user_belum = $data2 - $sudah_mengerjakan;
+        return view('hrd.dashboard_hrd', compact('data2', 'sudah_mengerjakan', 'user_aktif', 'user_belum'));
     }
 }

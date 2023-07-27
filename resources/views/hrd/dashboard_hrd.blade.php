@@ -159,7 +159,7 @@
                                     </div>
                                     <span>Belum Mengerjakan</span>
                                     <h3 class="card-title text-nowrap mb-1">
-                                        {{ $sudah_mengerjakan }}</h3>
+                                        {{ $user_belum }}</h3>
 
                                 </div>
                             </div>

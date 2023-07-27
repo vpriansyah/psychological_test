@@ -12,10 +12,20 @@
             <!-- Search -->
             <div class="navbar-nav align-items-center">
                 <div class="nav-item d-flex align-items-center">
-                    <i class="bx bx-search fs-4 lh-0"></i>
-                    <input type="text" class="form-control border-0 shadow-none" placeholder="Search..."
-                        aria-label="Search..." />
+                    <form action="" method="GET">
+
+
                 </div>
+                <select class="form-select" name="search_status">
+                    <option value="">Status</option>
+                    <option value="1">Lolos Ambang Batas</option>
+                    <option value="2">Tidak lolos Ambang Batas</option>
+
+
+                </select>
+                <button class="btn btn-primary ms-3" type="submit">search</button>
+                </form>
+
             </div>
             <!-- /Search -->
             </ul>
@@ -34,11 +44,11 @@
         <div class="card">
             <h5 class="card-header mb-3">View Table Laporan</h5>
             <div class="table-responsive text-nowrap">
-                <a style="width: 120px" type="button" href="/print_laporan_hrd" target="_blank"
+                <a style="width: 120px" type="button" target="_blank"
                     class="btn btn-sm rounded-pill btn-icon btn-outline-primary col-md-4 ms-3 mb-2" data-bs-toggle="tooltip"
                     data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true"
                     title="<i class='bx bx-printer bx-xs' ></i> <span>Print</span>">
-                    <span class="tf-icons bx bx-printer" data-bs-toggle="modal"></span>
+                    <span class="tf-icons bx bx-printer" data-bs-toggle="modal" data-bs-target="#cetak"></span>
                 </a>
                 <table class="table">
                     <thead>
@@ -81,7 +91,7 @@
                                 <td>
 
                                     @php
-                                        echo $hasil->created_at->format('l, d F Y H:i:s');
+                                        echo $hasil->updated_at->format('l, d F Y H:i:s');
                                     @endphp
 
                                 </td>
@@ -116,9 +126,6 @@
                                     <div class="card">
                                         <div class="card-body">
 
-                                            @php
-                                                $condition = $hasil->jumlah_poin > 127;
-                                            @endphp
 
                                             <div class="mb-3">
                                                 <label for="nama_lengkap" class="form-label">Nama lengkap</label>
@@ -146,13 +153,13 @@
                                             <div class="mb-4">
                                                 <label class="form-label" for="password">Status</label>
                                                 <br>
-                                                @if ($hasil->jumlah_poin > 127)
+                                                @if ($hasil->jumlah_poin > $kategori->ambang_batas)
                                                     <span class="badge rounded-pill bg-label-success">
                                                         Lolos Ambang Batas
                                                     </span>
                                                 @endif
 
-                                                @if ($hasil->jumlah_poin < 127)
+                                                @if ($hasil->jumlah_poin < $kategori->ambang_batas)
                                                     <span class="badge rounded-pill bg-label-danger">
                                                         Tidak lolos Ambang Batas
                                                     </span>
@@ -215,11 +222,59 @@
                     </div>
                     @endforeach
                 </table>
+
+                <!-- Modal Create -->
+                <div class="modal fade" id="cetak" tabindex="-1" aria-labelledby="createAccount"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="createAccount">Cetak Hasil Test </h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <!-- Register Card -->
+                                <div class="card">
+                                    <div class="card-body">
+                                        <form id="formAuthentication" class="mb-3" action="/print_pertanggal"
+                                            method="POST" autocomplete="off">
+                                            @csrf
+                                            <div class="mb-3">
+                                                <label for="Tanggal Awal" class="form-label">Tanggal Awal</label>
+                                                <input name="tanggal_awal" class="form-control" type="date"
+                                                    id="tanggal_awal" required />
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="Tanggal Akhir" class="form-label">Tanggal Akhir</label>
+                                                <input name="tanggal_akhir" class="form-control" type="date"
+                                                    id="tanggal_akhir" required />
+                                            </div>
+
+                                    </div>
+                                    <button type="submit" class="btn btn-primary" target="_blank">Cetak
+                                        File</button>
+                                </div>
+                                {{-- </form> --}}
+
+
+                                <!-- Register Card -->
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
                 <div class="col-md-4 ms-3 mb-3 mt-5">
                     {{ $data->links() }}
                 </div>
             </div>
         </div>
+
 
         <!--/ Basic Bootstrap Table -->
     @endsection

@@ -254,8 +254,8 @@
             labels: ['Jumlah Pendaftar', 'Sudah Mengerjakan', 'Belum Mengerjakan', 'User Aktif'],
             datasets: [{
                 label: 'Grafik Account',
-                data: [{{ $data2 }}, {{ $sudah_mengerjakan }}, {{ $data2 }} -
-                    {{ $sudah_mengerjakan }}, {{ $user_aktif }}
+                data: [{{ $data2 }}, {{ $sudah_mengerjakan }}, {{ $user_belum }},
+                    {{ $user_aktif }}
                 ],
                 borderWidth: 1
             }]

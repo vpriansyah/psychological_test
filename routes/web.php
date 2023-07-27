@@ -154,5 +154,6 @@ Route::middleware(['auth', 'HrdMid'])->group(function () {
     Route::post('/EmailLolos', [View_laporanController::class, 'lolos'])->name('EmailLolos');
     Route::post('/EmailTidakLolos', [View_laporanController::class, 'tidak_lolos'])->name('EmailTidakLolos');
     Route::get('/print_laporan_hrd', [View_laporanController::class, 'print']);
+    Route::post('/print_pertanggal', [View_laporanController::class, 'CetakHasilPertanggal']);
 });
 // <!-- HRD Route -->

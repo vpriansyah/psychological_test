@@ -13,6 +13,7 @@ class ProfileController extends Controller
     public function index()
     {
         $data = User::all();
+
         return view('user.profile', compact('data'));
     }
 }

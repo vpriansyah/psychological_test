@@ -482,11 +482,6 @@
                                         <input type="text" name="nama"
                                             class="form-control @error('nama') is-invalid @enderror" id="nama"
                                             placeholder="Your Name" required>
-                                        @error('nama')
-                                            <div class="invalid-feedback">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
                                     </div>
                                     <div class="col-md-6 form-group mt-3 mt-md-0">
                                         <input type="email"
@@ -500,22 +495,11 @@
                                     </div>
                                 </div>
                                 <div class="form-group mt-3">
-                                    <input type="text" class="form-control @error('subject') is-invalid @enderror"
-                                        name="subject" id="subject" placeholder="Subject" required>
-                                    @error('subject')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
+                                    <input type="text" class="form-control" name="subject" id="subject"
+                                        placeholder="Subject" required>
                                 </div>
                                 <div class="form-group mt-3">
-                                    <textarea type="text" class="form-control @error('pesan') is-invalid @enderror" name="pesan"
-                                        placeholder="Message" required></textarea>
-                                    @error('pesan')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
+                                    <textarea type="text" class="form-control" name="pesan" placeholder="Message" required></textarea>
                                 </div>
                                 <div class="my-3">
                                     <div class="loading">Loading</div>
