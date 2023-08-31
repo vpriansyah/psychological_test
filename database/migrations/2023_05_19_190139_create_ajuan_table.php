@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('nama')->nullable();
             $table->string('email')->nullable();
             $table->string('keperluan')->nullable();
+            $table->integer('status')->nullable();
             $table->timestamps();
         });
     }

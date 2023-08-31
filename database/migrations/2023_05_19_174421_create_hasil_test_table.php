@@ -13,8 +13,11 @@ return new class extends Migration
     {
         Schema::create('hasil_test', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('psikotes_id')->index();
-            $table->bigInteger('status_id')->index();
+            // $table->bigInteger('psikotes_id')->index();
+            // $table->bigInteger('status_id')->index();
+            $table->bigInteger('peserta_id')->index();
+            $table->integer('otp')->nullable();
+            $table->integer('jumlah_poin')->nullable();
             $table->string('hasil_keputusan')->nullable();
             $table->string('keterangan')->nullable();
             $table->timestamps();

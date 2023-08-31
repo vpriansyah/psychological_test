@@ -26,7 +26,8 @@
                         <div class="row">
                             <div id="total-time-left" align="center" class="mb-3 text-secondary"> </div>
                             @while ($count_id <= 45)
-                                <div class="col" style="border: 0.1em solid rgba(0,0,255,0.25);">
+                                {{-- <div class="col" style="border: 0.1em solid rgba(0,0,255,0.25);"> --}}
+                                <div class="col">
                                     <a class="nav-link scrollto" href="#{{ $count_id++ }}">{{ $count++ }}</a>
                                 </div>
                             @endwhile
